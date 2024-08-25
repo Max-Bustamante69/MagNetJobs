@@ -1,3 +1,110 @@
-# Ignore virtual environment folder
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+*.pyo
+*.pyd
+__pycache__/
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Ignore the migrations folder if you are not tracking migrations in version control
+**/migrations/
+
+# Ignore Django REST Framework specific files
+# You can add specific ignores if you have REST framework generated files that should not be tracked
+
+# If you're using static files
+staticfiles/
+static/
+
+# Ignore media files
+media/
+
+# Ignore Django secret key file and other environment variables
+.env
+.env.*
+
+# Environment specific configuration files
+aws-config.json
+credentials
+
+# Ignore MySQL dumps or backups
+*.sql
+*.dump
+*.bak
+
+# Ignore Python wheels
+*.whl
+
+# Ignore pipenv environment files
+.pipenv/
+
+# Ignore Docker files if using Docker
+*.env.docker
+docker-compose.override.yml
+
+# Ignore node_modules if using Node.js
+node_modules/
+
+# Ignore virtual environment folders
+venv/
+ENV/
+env/
 .venv/
-venv
+
+# VS Code settings (Optional, if you use VS Code)
+.vscode/
+
+# Ignore IDE directories
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore MacOS files
+.DS_Store
+
+# Ignore coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.tox/
+.pytest_cache/
+
+# Ignore temporary files
+*.tmp
+*.bak
+*.swp
