@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-950 text-white
+}
+
+/* basic table style */
+table {
+  @apply w-full border-collapse
+}
+
+th, td {
+  @apply border border-gray-700
+}
+
+th {
+  @apply bg-gray-900
+}
+
