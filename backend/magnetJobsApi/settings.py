@@ -79,13 +79,13 @@ WSGI_APPLICATION = 'magnetJobsApi.wsgi.application'
 
 #databaswe for mysql aws service connection
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'magnetjobs-db',
-        'USER': 'admin',
-        'PASSWORD': 'Magnetjobsdatabaseadmin123456',
-        'HOST': 'magnetjobs-db.c90q06wqebzb.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "magnetjobsdb",
+        "USER": "postgres",
+        "PASSWORD": "Sofi2202*",
+        "HOST": "localhost",
+        "PORT": "5432"
     }
 }
 
