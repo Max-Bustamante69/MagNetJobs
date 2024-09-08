@@ -11,7 +11,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UsersSerializer
     
     @action(detail=True, methods=['post'])
-    def done(self, request, pk=None):
+    def employed(self, request, pk=None):
         user = self.get_object()
         user.employed = not user.employed
         user.save()
