@@ -36,8 +36,7 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 
-# Ignore the migrations folder if you are not tracking migrations in version control
-**/migrations/
+
 
 # Ignore Django REST Framework specific files
 # You can add specific ignores if you have REST framework generated files that should not be tracked
