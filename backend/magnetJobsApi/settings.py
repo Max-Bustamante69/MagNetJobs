@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+# Add these at the top of your settings.py
+from os import getenv
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,15 +81,20 @@ WSGI_APPLICATION = 'magnetJobsApi.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 #databaswe for mysql aws service connection
+load_dotenv()
+# Replace the DATABASES section of your settings.py with this
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "magnetjobsdb",
-        "USER": "postgres",
-        "PASSWORD": "Sofi2202*",
-        "HOST": "localhost",
-        "PORT": "5432"
-    }
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': getenv('PGDATABASE'),
+    'USER': getenv('PGUSER'),
+    'PASSWORD': getenv('PGPASSWORD'),
+    'HOST': getenv('PGHOST'),
+    'PORT': getenv('PGPORT', 5432),
+    'OPTIONS': {
+      'sslmode': 'require',
+    },
+  }
 }
 
 # Password validation
