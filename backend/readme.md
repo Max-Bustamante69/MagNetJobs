@@ -147,4 +147,3 @@ Without both servers running, the full functionality of the application will not
 
 ---
 
-Let me know if you'd like any further adjustments or additional details!
