@@ -52,8 +52,8 @@ Next, you'll need to create a `.env.local` file to store your environment variab
 2. Add the following content to the `.env` file:
 
    ```bash
-   LOCAL_API_URL=http://localhost:8000
-   NEXT_PUBLIC_API_URL=http://localhost:8000
+    BACKEND_URL=http://localhost:8000
+    NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
    ```
 
 3. Save the file. These URLs point to your local Django server, which should be running simultaneously with the frontend.
