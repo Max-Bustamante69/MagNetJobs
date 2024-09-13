@@ -3,11 +3,19 @@ import UserCard from './UserCard';
 
 
 async function loadUsers() {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users`);
-    const users = await response.json();
-    console.log(users);
-    return users;
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const users = await response.json();
+        return users;
+    } catch (error) {
+        console.error("Error fetching users:", error);
+        return [];
+    }
 }
+
 
 async function UserList() {
 
