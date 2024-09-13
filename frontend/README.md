@@ -46,10 +46,10 @@ Next, you'll need to create a `.env.local` file to store your environment variab
 1. In the root of your frontend project directory, create a `.env.local` file:
 
    ```bash
-   touch .env.local
+   touch .env
    ```
 
-2. Add the following content to the `.env.local` file:
+2. Add the following content to the `.env` file:
 
    ```bash
    LOCAL_API_URL=http://localhost:8000
