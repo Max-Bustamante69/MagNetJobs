@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-black text-white
+  @apply bg-zinc-900 text-white
 }
 
 /* basic table style */

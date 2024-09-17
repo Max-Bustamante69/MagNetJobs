@@ -49,6 +49,7 @@ Next, you'll need to create a `.env.local` file to store your environment variab
    touch .env
    ```
 
+
 2. Add the following content to the `.env` file:
 
    ```bash
@@ -57,6 +58,9 @@ Next, you'll need to create a `.env.local` file to store your environment variab
    ```
 
 3. Save the file. These URLs point to your local Django server, which should be running simultaneously with the frontend.
+
+4. On the terminal paste and give enter to the following command: 
+ - npm install react-icons
 
 ---
 
@@ -102,4 +106,7 @@ Ensure both are running to achieve seamless communication between the two parts 
 With the frontend environment now set up, you’re ready to build out the user-facing components of **MagNetJobs**. Happy coding!
 
 ---
+
+ 
+
 
