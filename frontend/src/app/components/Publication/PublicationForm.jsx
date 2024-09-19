@@ -56,8 +56,8 @@ function PublicationForm() {
         <HiMiniPlusSmall size={"35px"} color="#414141" />
       </AlertDialogTrigger>
 
-      <AlertDialogContent className="text-white bg-transparent p-0 overflow-hidden relative shadow-[30px_30px_30px_-25px_rgba(255,255,255,0.5)]">
-        <div className="absolute bg-transparent backdrop-blur inset-0 -z-10 "></div>
+      <AlertDialogContent className="text-white bg-transparent p-0 overflow-hidden relative shadow-[30px_30px_30px_-25px_rgba(255,255,255,0.2)]">
+        <div className="absolute bg-transparent backdrop-blur-md inset-0 -z-10 "></div>
         <form className="relative space-y-6 z-10 p-6" onSubmit={handleSubmit}>
           <AlertDialogHeader>
             <AlertDialogTitle className="text-center text-3xl">
