@@ -1,10 +1,11 @@
-'use client';
+
 
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-function UserCard({ user }) {
+ function UserCard({ user }) {
+
     return (
 
         <section className='flex flex-col items-center justify-center h-dvh'>

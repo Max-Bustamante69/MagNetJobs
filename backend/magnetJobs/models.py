@@ -18,6 +18,7 @@ class Users(models.Model):
 class Post(models.Model):
     user = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='posts')
     content = models.TextField()
+    image= models.ImageField(upload_to='magnetJobs/images/posts',null=True, blank=True )
     created_at = models.DateTimeField(default= timezone.now)
 
     def __str__(self):

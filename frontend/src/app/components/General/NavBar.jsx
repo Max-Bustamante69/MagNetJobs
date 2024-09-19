@@ -1,13 +1,9 @@
 "use client";
 import {
     NavigationMenu,
-    NavigationMenuContent,
-    NavigationMenuIndicator,
     NavigationMenuItem,
     NavigationMenuLink,
     NavigationMenuList,
-    NavigationMenuTrigger,
-    NavigationMenuViewport,
   } from "@/components/ui/navigation-menu"
   import Link from 'next/link';
   import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -17,6 +13,7 @@ import {
   import { HiNewspaper } from "react-icons/hi2";
   import { HiOutlineBriefcase } from "react-icons/hi2";
   import { Input } from "@/components/ui/input"
+  import PublicationForm from "../Publication/PublicationForm";
 
   
   function NavBar() {
@@ -24,6 +21,8 @@ import {
         <div style={{backgroundColor: "#131313", borderRadius:"5px", boxShadow:"0px 5px 5px black " }}>
             <NavigationMenu >
                 <NavigationMenuList >
+
+                    {/* Feed*/}
                     <NavigationMenuItem style={{marginLeft: '30px'}} >
                         <Link href="../../" legacyBehavior passHref>
                             <NavigationMenuLink>
@@ -31,11 +30,20 @@ import {
                             </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
+
+                    {/*Search input*/}
                     <NavigationMenuItem style={{marginLeft: '800px'}} >
                             <NavigationMenuLink>
                                 <Input type="text" placeholder="Search" />
                             </NavigationMenuLink>
                     </NavigationMenuItem>
+
+                    {/*Publication*/}
+                    <NavigationMenuItem style={{marginLeft: '30px'}}>
+                        <PublicationForm />
+                    </NavigationMenuItem>
+
+                    {/*Private chat*/}
                     <NavigationMenuItem style={{marginLeft: '30px'}}>
                         <Link href="../../chat" legacyBehavior passHref> 
                             <NavigationMenuLink>
@@ -43,6 +51,8 @@ import {
                             </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
+
+                    {/*Forum*/}
                     <NavigationMenuItem style={{marginLeft: '30px'}}>
                         <Link href="../../forum" legacyBehavior passHref> 
                             <NavigationMenuLink>
@@ -57,6 +67,8 @@ import {
                             </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
+
+                    {/*News section*/}
                     <NavigationMenuItem style={{marginLeft: '30px'}}>
                         <Link href="../../news" legacyBehavior passHref> 
                             <NavigationMenuLink>
@@ -64,6 +76,8 @@ import {
                             </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
+
+                    {/*Magneto jobs network*/}
                     <NavigationMenuItem style={{marginLeft: '30px'}}>
                         <Link href="../../jobs" legacyBehavior passHref> 
                             <NavigationMenuLink>
@@ -71,6 +85,8 @@ import {
                             </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
+
+                    {/*Profile*/}
                     <NavigationMenuItem style={{marginLeft: '30px'}}>
                         <Link href="../../profile" legacyBehavior passHref>
                             <NavigationMenuLink>
@@ -81,6 +97,8 @@ import {
                             </NavigationMenuLink>
                         </Link>
                     </NavigationMenuItem>
+
+
                 </NavigationMenuList>
             </NavigationMenu>
         </div>

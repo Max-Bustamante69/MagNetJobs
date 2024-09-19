@@ -1,12 +1,13 @@
 
-"use client";
 import NavBar from '../app/components/General/NavBar'
 
+
 export default function Home() {
+
   return (
-    
+  
     <div>
-      <NavBar />
+      <NavBar/>
       <div>
         
         <center><h1 className="p-4  ">Home Page</h1></center>
