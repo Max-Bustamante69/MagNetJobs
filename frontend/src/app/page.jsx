@@ -1,7 +1,4 @@
 
-import NavBar from '../app/components/General/NavBar'
-import Image from 'next/image';
-
 export default function Home() {
 
   return (
@@ -11,6 +8,7 @@ export default function Home() {
 
         
         <center><h1 className="p-4  ">Home Page</h1></center>
+
      
         
         
