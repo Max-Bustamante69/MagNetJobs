@@ -45,7 +45,7 @@ staticfiles/
 static/
 
 # Ignore media files
-media/
+
 
 # Ignore Django secret key file and other environment variables
 .env
