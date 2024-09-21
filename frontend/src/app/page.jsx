@@ -7,13 +7,8 @@ export default function Home() {
   
     <div className='h-dvh flex flex-col '>
 
-
-        
-      <center><h1 className="p-4  ">Home Page</h1></center>
       <ListPosts />
-
-     
-        
+      
     </div> 
   );
 }
