@@ -5,7 +5,7 @@ export default function Home() {
 
   return (
   
-    <div className='h-dvh flex flex-col '>
+    <div className='h-dvh  flex flex-col content-center'>
 
       <ListPosts />
       
