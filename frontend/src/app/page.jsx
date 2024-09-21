@@ -1,16 +1,16 @@
 'use client';
 
-import Posts from '../app/components/Feed/InfiniteScroll'
+import ListPosts from '../app/components/Feed/InfiniteScroll'
 export default function Home() {
 
   return (
   
-    <div className='h-dvh flex flex-col items-center justify-center'>
+    <div className='h-dvh flex flex-col '>
 
 
         
       <center><h1 className="p-4  ">Home Page</h1></center>
-      <Posts />
+      <ListPosts />
 
      
         
