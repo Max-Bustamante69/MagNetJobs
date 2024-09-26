@@ -1,20 +1,14 @@
+'use client';
 
-import NavBar from '../app/components/General/NavBar'
-import Image from 'next/image';
-
+import ListPosts from '../app/components/Feed/InfiniteScroll'
 export default function Home() {
 
   return (
   
-    <div className='h-dvh flex flex-col items-center justify-center'>
+    <div className='h-dvh  flex flex-col content-center'>
 
-
-        
-        <center><h1 className="p-4  ">Home Page</h1></center>
-     
-        
-        
-
+      <ListPosts />
+      
     </div> 
   );
 }
