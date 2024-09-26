@@ -1,69 +1,97 @@
-// pages/posts.jsx
-import React, { useState, useEffect, useRef } from 'react';
-import formatDate from '../../../utils/FormatDate'
-import { loadUsers } from '../../../utils/LoadUsers'
+import React, { useState, useEffect, useRef, useMemo } from "react";
 
-async function loadPosts(page = 1)
-{
-    try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/posts/`, {
-            method: 'GET',
-            headers: {
-                'Cache-Control': 'no-store',  // Ensure no caching
-            },
-            cache: 'no-store',  // Also prevent fetch from caching
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-        return data;
-    } catch (error) {
-        console.error("Error fetching users:", error);
-        return [];
+import { loadUsers } from "@/utils/LoadUsers";
+import Loader from "@/components/ui/loader";
+import Image from "next/image";
+import Post from "./Post";
+import { Tapestry } from "next/font/google";
+
+async function loadPosts(page = 1, limit = 10) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/posts?page=${page}&page_size=${limit}/`,
+      {
+        method: "GET",
+        headers: {
+          "Cache-Control": "no-store",
+        },
+        cache: "no-store",
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const posts = await response.json();
+    console.log("Fetched posts:", posts);
+    return posts;
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    return [];
+  }
 }
 
-function ListPosts() {
-  const [posts, setPosts] = useState([]); // Estado para las publicaciones
-  const [users, setUsers] = useState([]); // Estado para los usuarios
-  const [page, setPage] = useState(1); // Estado para la página actual
-  const [loading, setLoading] = useState(false); // Estado de carga
-  const loader = useRef(null); // Referencia para el observador
-  
-  // Función para obtener el nombre del usuario basado en el user_id
-  const getUserById = (userId) => {
-    const user = users.find((user) => user.id === userId);
-    return user ? user.username : 'Unknown User';
-  };
+function ListPosts({ initialPosts, initialUsers }) {
+  const [posts, setPosts] = useState(initialPosts || []);
+  const [users, setUsers] = useState(initialUsers || []);
+  const [page, setPage] = useState(1); // Start at page 2 since page 1 is preloaded
+  const [loading, setLoading] = useState(false);
+  const [hasMorePosts, setHasMorePosts] = useState(true);
+  const [error, setError] = useState(null);
+  const loader = useRef(null);
 
-  // Función para cargar más publicaciones
+  const getUserById = useMemo(
+    () => (userId) => {
+      const user = users.find((user) => user.id === userId);
+      return user ? user.username : "Unknown User";
+    },
+    [users]
+  );
+
   const fetchMorePosts = async () => {
+    if (loading || !hasMorePosts) return;
     setLoading(true);
-    const newPosts = await loadPosts(page);
-    setPosts((prevPosts) => [...prevPosts, ...newPosts]); // Añadir las nuevas publicaciones al estado actual
-    setPage((prevPage) => prevPage + 1); // Incrementar la página
+    try {
+      const newPosts = await loadPosts(page);
+
+      console.log("New posts:", newPosts);
+
+      if (newPosts.length === 0) {
+        throw new Error("No post where retrieved");
+      }
+
+      if (hasMorePosts) {
+        if (!newPosts.next) {
+          setHasMorePosts(false);
+          console.log("No more posts available");
+        }
+
+        // Prevent adding duplicate posts
+        setPosts((prevPosts) => [...prevPosts, ...newPosts.results]);
+        setPage((prevPage) => prevPage + 1);
+      }
+    } catch (error) {
+      setHasMorePosts(false);
+      setError(error);
+      console.error("Error fetching more posts:", error);
+    }
     setLoading(false);
   };
 
-  // useEffect para cargar usuarios y la primera tanda de posts al montar el componente
+  // Fetch users only on mount, preload posts with SSR/SSG
   useEffect(() => {
-    const initializeData = async () => {
+    const fetchUsers = async () => {
       const initialUsers = await loadUsers();
       setUsers(initialUsers);
-      await fetchMorePosts(); // Cargar la primera página de posts
     };
-    initializeData();
+    fetchUsers();
   }, []);
 
-  // useEffect para configurar el IntersectionObserver
+  // Infinite scroll handler
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        // Si el loader (referencia) es visible y no estamos cargando más publicaciones, carga más
         if (entries[0].isIntersecting && !loading) {
           fetchMorePosts();
         }
@@ -83,34 +111,20 @@ function ListPosts() {
   }, [loading]);
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center my-12">
       {posts.map((post) => (
-        <div
-          key={post.id}
-          className="bg-neutral-900 px-4 py-3 mb-2 rounded-md w-1/2 flex flex-col justify-around space-y-3"
-        >
-          <h1 className="text-lg font-semibold italic hover:underline">
-            {getUserById(post.user)}
-          </h1>
-          <div className="flex justify-center">
-            {post.image ? (
-              <img
-                src={post.image}
-                alt="Post image"
-                className="w-1/2 h-auto mb-2"
-                onError={(e) => console.log('Error loading image', e.target.src)}
-              />
-            ) : (
-              <p></p>
-            )}
-          </div>
-          <h2>{post.content}</h2>
-          <p className="font-extralight text-xs">{formatDate(post.created_at)}</p>
-        </div>
+        <Post key={post.id} post={post} getUserById={getUserById} />
       ))}
-      {/* Referencia para el observador, se activará al llegar al final */}
-      <div ref={loader} className="loader">
-        {loading && <p>Loading more posts...</p>}
+      <div className="error">
+        {error && <p>Error fetching more posts: {error.message}</p>}
+      </div>
+      <div ref={loader} className="loader h-10">
+        {!error &&
+          (loading ? (
+            <Loader />
+          ) : (
+            !hasMorePosts && <p>No more posts available.</p>
+          ))}
       </div>
     </div>
   );
