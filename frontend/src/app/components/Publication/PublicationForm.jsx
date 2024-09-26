@@ -22,7 +22,7 @@ function PublicationForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const users = await loadUsers();
-    const user = users[0];
+    const user = users[1];
     const userId = user.id;
 
     const formData = new FormData();
@@ -57,7 +57,7 @@ function PublicationForm() {
       </AlertDialogTrigger>
 
       <AlertDialogContent className="text-white bg-transparent p-0 overflow-hidden  shadow-[30px_30px_30px_-25px_rgba(255,255,255,0.2)]">
-        <div className="absolute bg-transparent backdrop-blur-md inset-0 -z-10 "></div>
+        <div className="absolute bg-transparent backdrop-blur-xl inset-0 -z-10 "></div>
         <form className="relative space-y-6 z-10 p-6" onSubmit={handleSubmit}>
           <AlertDialogHeader>
             <AlertDialogTitle className="text-center text-3xl">
