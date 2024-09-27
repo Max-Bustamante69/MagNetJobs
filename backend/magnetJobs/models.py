@@ -12,7 +12,6 @@ class Users(models.Model):
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)
     username = models.CharField(max_length=50, unique=True, db_index=True, default='unkwown')  # Index added
-    display_name = models.CharField(max_length=50, null=True, blank=True)
     email = models.EmailField(unique=True, null=True, blank=True, db_index=True)  # Index added
     password_hash = models.CharField(max_length=255, null=True, blank=True)
     google_id = models.CharField(max_length=100, unique=True, null=True, blank=True, db_index=True)  # Index added
@@ -46,8 +45,6 @@ class Post(models.Model):
     content = models.TextField()
     user = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='posts')
     image = models.ImageField(upload_to=user_directory_path, null=True, blank=True)
-    
-    attachments = models.ManyToManyField('Media', related_name='attached_posts', blank=True)
     likes = models.ManyToManyField(Users, through='Like', related_name='liked_posts', blank=True)
     bookmarks = models.ManyToManyField(Users, through='Bookmark', related_name='bookmarked_posts', blank=True)
     comments = models.ManyToManyField('Comment', related_name='commented_posts', blank=True)
@@ -57,6 +54,7 @@ class Post(models.Model):
 
     def __str__(self):
         return f'{self.user.username}: {self.content}'
+    
 
 class Media(models.Model):
     file = models.FileField(upload_to='posts/attachments')
