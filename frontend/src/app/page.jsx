@@ -1,4 +1,4 @@
-'use client';
+
 
 import ListPosts from '../app/components/Feed/InfiniteScroll'
 export default function Home() {
