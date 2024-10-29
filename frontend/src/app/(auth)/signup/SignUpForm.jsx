@@ -29,7 +29,7 @@ function SignUpForm() {
 
   const form = useForm({
     resolver: zodResolver(signUpSchema),
-    defaultValues: { email: "", password: "", username: "" },
+    defaultValues: { email: "", password: "", username: "", first_name: "", last_name: "" },
   });
 
   async function onSubmit(data) {
@@ -40,6 +40,7 @@ function SignUpForm() {
         if (error) {
             setError(error);
         }
+        console.log(data)
 
     })
 
@@ -49,6 +50,45 @@ function SignUpForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
         {error && <p className="text-red-500">{error}</p>}
+        <FormField
+          control={form.control}
+          name="first_name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-black" htmlFor={field.name}>
+                First Name
+              </FormLabel>
+              <FormControl>
+                <Input
+                  className="text-black bg-black bg-opacity-5"
+                  placeholder="First Name"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="last_name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-black" htmlFor={field.name}>
+                Last Name
+              </FormLabel>
+              <FormControl>
+                <Input
+                  className="text-black bg-black bg-opacity-5"
+                  placeholder="Last Name"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name="username"
@@ -111,7 +151,7 @@ function SignUpForm() {
         />
 
         {/* Add more fields for email, password as needed */}
-        <LoadingButton  loading={isPending} type="submit">
+        <LoadingButton loading={isPending} type="submit">
           Create Account
         </LoadingButton>
       </form>
