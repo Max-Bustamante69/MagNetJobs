@@ -2,25 +2,22 @@ import Image from "next/image";
 import formatDate from "@/utils/FormatDate";
 import formatTimeAgo from "@/utils/FormatTimeAgo";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import fetcher from "@/utils/fetcher";
 import Loader from "@/components/ui/loader";
-import useSWR from "swr";
 import { SkeletonCard } from "@/components/SkeletonCard";
+import { useUser } from "@/utils/GetUserById";
+import React from "react";
 
+const Post = React.memo(function Post({ post, isLoading }) {
+  // Use the custom hook instead of calling useSWR directly
+  const {
+    user,
+    isLoading: isUserLoading,
+    isError: isUserError,
+  } = useUser(post.user);
 
-function Post({ post, isLoading }) {
-  // Using the user ID directly from the post to fetch user data
-  const { data: user, error } = useSWR(
-    () =>
-      post.user
-        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/${post.user}`
-        : null,
-    fetcher
-  );
-
-  // Handle loading and error states for user data
-  if (isLoading || !user) return <SkeletonCard className='w-full'/> // Show loader if parent is loading or user data is not yet fetched
-  if (error) return <p>Error loading user</p>;
+  // Consolidate loading states
+  if (isLoading || isUserLoading) return <SkeletonCard className="w-full" />; // Show loader if parent is loading or user data is not yet fetched
+  if (isUserError) return <p>Error loading user</p>;
 
   return (
     <article className="border-b border-white border-opacity-20 py-8 mb-2 w-1/3 flex flex-col justify-around space-y-3">
@@ -28,15 +25,15 @@ function Post({ post, isLoading }) {
         <Avatar>
           <AvatarImage
             src={
-              user.avatar ||
+              user?.avatar ||
               "https://images.squarespace-cdn.com/content/v1/606d159a953867291018f801/1619987722169-VV6ZASHHZNRBJW9X0PLK/Key_Art_02_layeredjpg.jpg?format=1500w"
             }
             alt="User avatar"
           />
-          <AvatarFallback>{user.username}</AvatarFallback>
+          <AvatarFallback>{user?.username}</AvatarFallback>
         </Avatar>
         <h1 className="text-lg capitalize font-semibold hover:underline">
-          {user.username}
+          {user?.username}
         </h1>
         <p className="opacity-60 text-lg">{formatTimeAgo(post.created_at)}</p>
       </div>
@@ -76,5 +73,6 @@ function Post({ post, isLoading }) {
     </article>
   );
 }
+)
 
 export default Post;

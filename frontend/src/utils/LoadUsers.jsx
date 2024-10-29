@@ -1,23 +1,20 @@
- async function loadUsers() {
-    try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users`, {
-            method: 'GET',
-            headers: {
-                'Cache-Control': 'no-store',  // Ensure no caching
-            },
-            cache: 'no-store',  // Also prevent fetch from caching
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const users = await response.json();
-        return users;
-    } catch (error) {
-        console.error("Error fetching users:", error);
-        return [];
-    }
+import fetcher from "./fetcher";
+
+async function loadUsers() {
+  try {
+    // Construct the URL for fetching users
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users`;
+
+    // Use the fetcher to make the API call
+    const users = await fetcher(url);
+
+    // Return the fetched users
+    return users;
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    // Return an empty array in case of error
+    return [];
+  }
 }
 
 export { loadUsers };

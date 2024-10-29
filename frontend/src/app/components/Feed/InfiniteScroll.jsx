@@ -3,23 +3,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import Loader from "@/components/ui/loader";
 import Post from "./Post";
+import loadPosts from "@/utils/LoadPosts";
 
-async function loadPosts(page = 1, limit = 10) {
-  try {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/posts/rebckwyariztdmsv/user_posts?page=${page}&page_size=${limit}/`
-    );
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching posts:", error);
-    return { results: [] }; // Return an object with a results property
-  }
-}
 
 function ListPosts({ initialPosts }) {
   const [posts, setPosts] = useState(initialPosts || []);
