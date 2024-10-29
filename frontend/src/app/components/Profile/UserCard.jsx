@@ -5,13 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
  function UserCard({ user }) {
-    console.log(user)
-    const dummieUser = {
-        username: 'Carlos',
-        first_name: 'Carlos',
-        last_name: 'Nava',
-        employed: true
-    }
+
+
     return (
       <div className="relative rounded-xl w-full group">
         <Card className="relative bg-black border-gray-400 flex justify-around p-8 z-10 ">
@@ -24,7 +19,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
           <div className="flex flex-col gap-y-4">
             <div className="flex justify-around">
               <h2 className="text-white text-4xl font-bold">
-                {dummieUser.username.toUpperCase()}
+                {user.username.toUpperCase()}
               </h2>
 
               <Button variant="outline">Editar Perfil</Button>
@@ -42,8 +37,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
             </div>
 
             <div className="flex flex-col gap-4 text-white">
-              <p>{dummieUser.first_name + " " + dummieUser.last_name}</p>
-              <p> {dummieUser.employed ? "Empleado" : "Desempleado"} </p>
+              <p>{user.first_name + " " + user.last_name}</p>
+              <p> {user.employed ? "Empleado" : "Desempleado"} </p>
             </div>
           </div>
         </Card>

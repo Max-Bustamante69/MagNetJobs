@@ -12,7 +12,7 @@ var hash_pass = ''
 
 export async function signUp(credentials) {
   try {
-    const { email, password, username } = signUpSchema.parse(credentials);
+    const { email, password, username, first_name, last_name } = signUpSchema.parse(credentials);
 
     // Hash the password
     const hashPassword = await hash(password, {
@@ -63,6 +63,8 @@ export async function signUp(credentials) {
         username,
         email,
         password_hash: hashPassword,
+        first_name,
+        last_name,
       }),
     });
 

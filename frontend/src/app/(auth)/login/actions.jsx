@@ -5,6 +5,7 @@ import {lucia} from "@/auth";
 import { verify } from "@node-rs/argon2";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
+import { json } from "docker/src/languages";
 
 export async function login(credentials){
     try {
@@ -21,11 +22,16 @@ export async function login(credentials){
         return { error: "User not found" };
         }
         
+
+        console.log(data);
+        
     
         const user = data[0];
 
+       
+
         if (!user || !user.password_hash) {
-          return { error: "Iconrrect Username or Password" };
+          return { error: `Iconrrect Username ${JSON.stringify(data)}` };
         }
 
 
@@ -39,7 +45,7 @@ export async function login(credentials){
         });
     
         if (!isValidPassword) {
-        return { error: "Iconrrect Username or Password" };
+        return { error: "Iconrrect  Password" };
         }
 
 
