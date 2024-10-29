@@ -1,9 +1,18 @@
-import { loadUsers } from "../../utils/LoadUsers";
-import UserCard from "../components/Profile/UserCard";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import UserCard from "@/app/components/Profile/UserCard";
+import LoadUser from "@/utils/LoadUser";
 
-async function Profile() {
-  const users = await loadUsers();
-  const user = users[0];
+
+// Fetching user data directly in the component
+async function Profile({ params }) {
+  const { username } = params;
+
+  console.log(username);
+  const user = await LoadUser(username);
+
+  if (!user) {
+    return <p>User not found</p>;
+  }
 
   return (
     <div className="flex flex-col items-center gap-10">
