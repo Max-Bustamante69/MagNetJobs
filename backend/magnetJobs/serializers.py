@@ -11,7 +11,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
-        fields = ['id', 'username', 'email', 'avatar_image', 'following']  # Minimal fields for list views
+        fields = ['id', 'username', 'email', 'avatar_image', 'following', 'password_hash', 'first_name', 'last_name']  # Minimal fields for list views
 
     def validate_username(self, value):
         """Validate that the username is unique."""

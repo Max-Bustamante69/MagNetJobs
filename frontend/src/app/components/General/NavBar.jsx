@@ -12,45 +12,21 @@ import {
   import { HiOutlineBell } from "react-icons/hi";
   import { HiNewspaper } from "react-icons/hi2";
   import { HiOutlineBriefcase } from "react-icons/hi2";
-  import { Input } from "@/components/ui/input"
   import Image from 'next/image';
   import PublicationForm from "../Publication/PublicationForm";
   import Logo from "./Logo";
-
+  import SearchBar from "./SearchBar";
   
   function NavBar() {
     return (
-      <nav className="flex justify-between items-center px-4">
+      <nav className="flex justify-between items-start px-4">
         {/* Logo Section */}
         <Link href="/">
           <Logo />
         </Link>
 
         {/* Search Bar in the Center */}
-        <div
-          id="search-bar"
-          className="flex-grow mx-6 flex items-center relative border border-white border-opacity-20 text-md font-bold p-1 rounded-lg max-w-xl transition duration-300 focus-within:border-opacity-80"
-        >
-          <Input
-            className="border-none w-full"
-            type="text"
-            placeholder="Search"
-          />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6 box p-2 box-content  rounded-full  transition duration-300   hover:stroke-black hover:bg-white"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-            />
-          </svg>
-        </div>
+        <SearchBar />
 
         {/* Navigation Menu */}
         <NavigationMenu className="flex gap-4">

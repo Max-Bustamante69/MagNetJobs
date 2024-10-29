@@ -4,7 +4,10 @@ from .serializers import UsersSerializer, PostSerializer, UserDetailSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
-from django.db.models import Count, Prefetch
+from django.db.models import Count
+from django.shortcuts import get_object_or_404
+
+
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = Users.objects.all().prefetch_related(
@@ -34,6 +37,23 @@ class UserViewSet(viewsets.ModelViewSet):
         following_users = user.following.all()
         serializer = UsersSerializer(following_users, many=True)
         return Response(serializer.data)
+    
+    # ALLOW SEARCHING FOR USERS BY USERNAME
+    def get_queryset(self):
+        # Filter by 'search' query parameter if provided
+        search_param = self.request.query_params.get('search', None)
+        if search_param:
+            return Users.objects.filter(username__icontains=search_param)
+        return super().get_queryset()
+    
+    @action(detail=False, methods=['get'], url_path='username/(?P<username>[^/.]+)')
+    def get_user_by_username(self, request, username=None):
+        user = get_object_or_404(Users, username=username)
+        serializer = UsersSerializer(user)
+        return Response(serializer.data)
+    
+
+    
 
 class PostPagination(PageNumberPagination):
     page_size = 10 
