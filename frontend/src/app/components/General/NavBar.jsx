@@ -16,8 +16,10 @@ import {
   import PublicationForm from "../Publication/PublicationForm";
   import Logo from "./Logo";
   import SearchBar from "./SearchBar";
-  
+  import Icons from "./Icons";
+
   function NavBar() {
+   
     return (
       <nav className="flex justify-between items-start px-4">
         {/* Logo Section */}
@@ -40,7 +42,7 @@ import {
             <NavigationMenuItem>
               <Link href="/chat" legacyBehavior passHref>
                 <NavigationMenuLink>
-                  <HiChatAlt2 size={"35px"} color="#414141" />
+                  <Icons IconName={HiChatAlt2} />
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
@@ -49,7 +51,7 @@ import {
             <NavigationMenuItem>
               <Link href="/forum" legacyBehavior passHref>
                 <NavigationMenuLink>
-                  <HiChatAlt size={"35px"} color="#414141" />
+                  <Icons IconName={HiChatAlt} />
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
@@ -58,7 +60,7 @@ import {
             <NavigationMenuItem>
               <Link href="/notification" legacyBehavior passHref>
                 <NavigationMenuLink>
-                  <HiOutlineBell size={"35px"} color="#414141" />
+                  <Icons IconName={HiOutlineBell} />
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
@@ -67,7 +69,7 @@ import {
             <NavigationMenuItem>
               <Link href="/news" legacyBehavior passHref>
                 <NavigationMenuLink>
-                  <HiNewspaper size={"35px"} color="#414141" />
+                  <Icons IconName={HiNewspaper} />
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
@@ -76,7 +78,7 @@ import {
             <NavigationMenuItem>
               <Link href="/jobs" legacyBehavior passHref>
                 <NavigationMenuLink>
-                  <HiOutlineBriefcase size={"35px"} color="#414141" />
+                  <Icons IconName={HiOutlineBriefcase} />
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
