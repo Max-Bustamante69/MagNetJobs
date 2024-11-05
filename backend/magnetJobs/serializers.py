@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Users, Post, Comment, Media
+from .models import Users, Post, Comment, Media, Friendship
 
 class UserDetailSerializer(serializers.ModelSerializer):
     posts = serializers.PrimaryKeyRelatedField(many=True, read_only=True)  # Include post IDs in user details
@@ -47,3 +47,8 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = '__all__'  # Return all fields for detailed view
         read_only_fields = ['created_at', 'comments', 'linked_notifications']  # Make certain fields read-only
+
+class FriendshipSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Friendship
+        fields='__all__'
