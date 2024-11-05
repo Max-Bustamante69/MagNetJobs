@@ -1,4 +1,4 @@
-"use client"; 
+"use server"; 
 
 import LoadUser from "@/utils/LoadUser";
 import Icons from "../General/Icons";
@@ -43,7 +43,7 @@ import { FollowRequest } from "../Friends/FollowAction";
                 <strong>43</strong> Seguidos
               </p>
               {user.username!= userOnSessionName && !(userOnSession.following.includes(user.id)) ? (
-                <p onClick={FollowRequest}><Icons IconName={HiUserAdd} /></p>
+                <p onClick={() => FollowRequest(user, us)}><Icons IconName={HiUserAdd} /></p>
               ):user.username!= userOnSessionName && (userOnSession.following.includes(user.id)) ? 
               (
                 <Icons IconName={HiUserRemove}/>

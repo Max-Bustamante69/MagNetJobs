@@ -1,15 +1,7 @@
-import { useState } from "react";
-
 function Icons({ IconName }) {
-    const [selectedIcon, setSelectedIcon] = useState(false);
 
-    const handleSelectedIcon = (iconState) => {
-        setSelectedIcon(iconState);
-      };
-      
     return (
-        <IconName  onMouseEnter={() => handleSelectedIcon(true)} 
-        onMouseLeave={() => handleSelectedIcon(false)}  size={"35px"} color={selectedIcon? "#0cb325" : "#414141"} />
+        <IconName  className="hover:fill-green-700 transition duration-300 ease-in-out" color="#414141"   size={"35px"}  />
     );
   }
   
