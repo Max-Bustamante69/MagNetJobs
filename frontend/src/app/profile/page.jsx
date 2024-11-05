@@ -4,14 +4,14 @@ import LoadUser  from "@/utils/LoadUser";
 
 async function Profile() {
   {/*Esta carga debe cambiarse por el id del usuario con sesión iniciada*/}
-  const user = await LoadUser("maxinhos");
+  const user = await LoadUser("Maxbustamante");
   
   return (
     <div className="flex flex-col items-center gap-10">
       <section className="w-2/3 2xl:w-1/2 mt-12 flex flex-col items-center gap-12">
         <h2 className="font-extrabold text-7xl">
           Your{" "}
-          <span className="bg-gradient-to-r text-transparent from-white to-blue-400 bg-clip-text">
+          <span className="bg-gradient-to-r text-transparent from-white to-green-700 bg-clip-text">
             Profile
           </span>
         </h2>
