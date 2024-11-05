@@ -21,8 +21,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
               <h2 className="text-white text-4xl font-bold">
                 {user.username.toUpperCase()}
               </h2>
-
-              <Button variant="outline">Editar Perfil</Button>
+              {/*Esta verificación debe cambiarse por el id del usuario con sesión iniciada*/}
+              {user.username=='maxinhos' &&(
+              <Button variant="outline">Editar Perfil</Button>)}
             </div>
             <div className="flex gap-4">
               <p className="text-white">

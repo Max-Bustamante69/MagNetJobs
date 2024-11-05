@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR from 'swr';
 import fetcher from "./fetcher";
 
 export const useUser = (userId) => {
