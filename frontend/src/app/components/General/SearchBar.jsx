@@ -37,8 +37,7 @@ function SearchBar() {
     <div className="flex flex-col w-1/3 items-center justify-top relative z-50">
       <div
         id="search-bar"
-        className="flex w-full items-center relative border border-white border-opacity-20 text-md font-bold p-1 rounded-lg transition duration-300 focus-within:border-opacity-80"
-      >
+        className="flex w-full items-center relative border border-white border-opacity-20 text-md font-bold p-1 rounded-lg transition duration-300 focus-within:border-opacity-80 hover:border-green-700">
         <Input
           className="border-none w-full"
           type="text"
@@ -54,7 +53,7 @@ function SearchBar() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-6 h-6 box p-2 box-content rounded-full transition duration-300 hover:stroke-black hover:bg-white"
+          className="w-6 h-6 box p-2 box-content rounded-full transition duration-300 hover:stroke-black hover:bg-green-700"
         >
           <path
             strokeLinecap="round"

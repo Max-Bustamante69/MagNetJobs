@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { loadUsers } from "../../../utils/LoadUsers";
+import Icons from "../General/icons";
 
 function PublicationForm() {
   const [text, setText] = useState("");
@@ -53,7 +54,7 @@ function PublicationForm() {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <HiMiniPlusSmall size={"35px"} color="#414141" />
+      <Icons IconName={HiMiniPlusSmall} />
       </AlertDialogTrigger>
 
       <AlertDialogContent className="text-white bg-transparent p-0 overflow-hidden border-4 border-white border-opacity-30  shadow-[30px_30px_30px_-25px_rgba(255,255,255,0.2)]">
