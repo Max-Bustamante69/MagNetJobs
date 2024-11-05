@@ -1,11 +1,18 @@
+"use client"; 
 
-
+import LoadUser from "@/utils/LoadUser";
+import Icons from "../General/Icons";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { HiUserAdd } from "react-icons/hi";
+import { HiUserRemove } from "react-icons/hi";
+import { HiOutlinePencilAlt } from "react-icons/hi";
+import { FollowRequest } from "../Friends/FollowAction";
 
- function UserCard({ user }) {
 
+ async function UserCard({ user }) {
+  const userOnSessionName = 'Maxbustamante';
+  const userOnSession= await LoadUser(userOnSessionName);
 
     return (
       <div className="relative rounded-xl w-full group">
@@ -22,8 +29,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
                 {user.username.toUpperCase()}
               </h2>
               {/*Esta verificación debe cambiarse por el id del usuario con sesión iniciada*/}
-              {user.username=='maxinhos' &&(
-              <Button variant="outline">Editar Perfil</Button>)}
+              {user.username== userOnSessionName &&(
+              <Icons IconName={HiOutlinePencilAlt}/>)}
             </div>
             <div className="flex gap-4">
               <p className="text-white">
@@ -35,6 +42,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
               <p className="text-white">
                 <strong>43</strong> Seguidos
               </p>
+              {user.username!= userOnSessionName && !(userOnSession.following.includes(user.id)) ? (
+                <p onClick={FollowRequest}><Icons IconName={HiUserAdd} /></p>
+              ):user.username!= userOnSessionName && (userOnSession.following.includes(user.id)) ? 
+              (
+                <Icons IconName={HiUserRemove}/>
+              ): null
+              }
             </div>
 
             <div className="flex flex-col gap-4 text-white">
@@ -43,7 +57,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
             </div>
           </div>
         </Card>
-        <div className="absolute rounded-xl inset-0 bg-gradient-to-r from-white  to-blue-400 blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-1000 group-hover:duration-200"></div>
+        <div className="absolute rounded-xl inset-0 bg-gradient-to-r from-white  to-green-700 blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-1000 group-hover:duration-200"></div>
       </div>
 
       // from-blue-600 to-emerald-600 bg-clip-text
