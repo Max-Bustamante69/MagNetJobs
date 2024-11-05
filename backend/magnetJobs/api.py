@@ -130,10 +130,10 @@ class PostViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class FriendshipViewSet (viewsets.ModelViewSet):
-  serializer_class = FriendshipSerializer
-  queryset = Friendship.objects.all()
+    serializer_class = FriendshipSerializer
+    queryset = Friendship.objects.all()
 
-  def create(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         user_id = request.data.get("user_id")
         friend_id = request.data.get("friend_id")
 
@@ -152,3 +152,11 @@ class FriendshipViewSet (viewsets.ModelViewSet):
             return Response({"success": "Friendship created successfully"}, status=status.HTTP_201_CREATED)
         else:
             return Response({"error": "Friendship already exists"}, status=status.HTTP_400_BAD_REQUEST)
+    
+    def destroy(self, request, pk=None):
+        try:
+            friendship = self.get_object()  # Obtiene el objeto a eliminar
+            friendship.delete()  # Elimina la amistad
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Friendship.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
