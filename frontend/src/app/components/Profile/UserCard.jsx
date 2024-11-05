@@ -1,13 +1,10 @@
-"use server"; 
 
 import LoadUser from "@/utils/LoadUser";
 import Icons from "../General/Icons";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { HiUserAdd } from "react-icons/hi";
-import { HiUserRemove } from "react-icons/hi";
 import { HiOutlinePencilAlt } from "react-icons/hi";
-import { FollowRequest } from "../Friends/FollowAction";
+import FollowButton from "../Friends/FollowButton";
 
 
  async function UserCard({ user }) {
@@ -42,13 +39,9 @@ import { FollowRequest } from "../Friends/FollowAction";
               <p className="text-white">
                 <strong>43</strong> Seguidos
               </p>
-              {user.username!= userOnSessionName && !(userOnSession.following.includes(user.id)) ? (
-                <p onClick={() => FollowRequest(user, us)}><Icons IconName={HiUserAdd} /></p>
-              ):user.username!= userOnSessionName && (userOnSession.following.includes(user.id)) ? 
-              (
-                <Icons IconName={HiUserRemove}/>
-              ): null
-              }
+               {/* Renderizar el botón de seguimiento solo si el usuario no es el mismo */}
+            {user.username !== userOnSessionName && (
+              <FollowButton user={user} userOnSession={userOnSession}  />)}
             </div>
 
             <div className="flex flex-col gap-4 text-white">
