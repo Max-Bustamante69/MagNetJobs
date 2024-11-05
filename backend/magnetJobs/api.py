@@ -1,6 +1,6 @@
 from rest_framework import viewsets, permissions, status
-from .models import Users, Post
-from .serializers import UsersSerializer, PostSerializer, UserDetailSerializer
+from .models import Users, Post, Friendship
+from .serializers import UsersSerializer, PostSerializer, UserDetailSerializer, FriendshipSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
@@ -51,8 +51,6 @@ class UserViewSet(viewsets.ModelViewSet):
         user = get_object_or_404(Users, username=username)
         serializer = UsersSerializer(user)
         return Response(serializer.data)
-    
-
     
 
 class PostPagination(PageNumberPagination):
@@ -130,3 +128,27 @@ class PostViewSet(viewsets.ModelViewSet):
             return self.get_paginated_response(serializer.data)
         serializer = self.get_serializer(posts, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class FriendshipViewSet (viewsets.ModelViewSet):
+  serializer_class = FriendshipSerializer
+  queryset = Friendship.objects.all()
+
+  def create(self, request, *args, **kwargs):
+        user_id = request.data.get("user_id")
+        friend_id = request.data.get("friend_id")
+
+        if not user_id or not friend_id:
+            return Response({"error": "User IDs are required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = Users.objects.get(id=user_id)
+            friend = Users.objects.get(id=friend_id)
+        except Users.DoesNotExist:
+            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        friendship, created = Friendship.objects.get_or_create(user=user, friend=friend)
+
+        if created:
+            return Response({"success": "Friendship created successfully"}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({"error": "Friendship already exists"}, status=status.HTTP_400_BAD_REQUEST)
