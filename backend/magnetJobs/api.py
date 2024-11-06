@@ -1,6 +1,6 @@
 from rest_framework import viewsets, permissions, status
-from .models import Users, Post, Friendship
-from .serializers import UsersSerializer, PostSerializer, UserDetailSerializer, FriendshipSerializer
+from .models import Users, Post, Friendship, Notification
+from .serializers import UsersSerializer, PostSerializer, UserDetailSerializer, FriendshipSerializer, NotificationSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
@@ -168,3 +168,10 @@ class FriendshipViewSet (viewsets.ModelViewSet):
             return Response({'friendship_id': friendship.id}, status=status.HTTP_200_OK)
         except Friendship.DoesNotExist:
             return Response({'error': 'Friendship not found'}, status=status.HTTP_404_NOT_FOUND)
+
+class NotificationViewSet(viewsets.ModelViewSet):
+    serializer_class = NotificationSerializer
+
+    def get_queryset(self):
+        # Retorna todas las notificaciones del usuario , leídas y no leídas
+        return Notification.objects.filter(recipient=self.request.user).order_by('-created_at')   

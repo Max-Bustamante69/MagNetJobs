@@ -102,3 +102,12 @@ def add_to_following(sender, instance, created, **kwargs):
 def delete_of_following(sender, instance , **kwargs):
         # Delete the friend of the following field of the user
         instance.user.following.remove(instance.friend)
+
+class Notification(models.Model):
+    recipient = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='notifications_received')
+    issuer = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='notifications_issued')
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Notification to {self.recipient} from {self.issuer}'
