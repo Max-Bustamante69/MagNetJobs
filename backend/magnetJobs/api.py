@@ -174,4 +174,26 @@ class NotificationViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         # Retorna todas las notificaciones del usuario , leídas y no leídas
-        return Notification.objects.filter(recipient=self.request.user).order_by('-created_at')   
+        return Notification.objects.filter(recipient=self.request.user).order_by('-created_at')
+
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        recipient_id = data.get('recipient')
+        issuer_id = data.get('issuer')
+        content = data.get('content')
+
+        try:
+            recipient = Users.objects.get(id=recipient_id)
+            issuer = Users.objects.get(id=issuer_id)
+        except Users.DoesNotExist:
+            return Response({"error": "Usuario no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+        
+        notification = Notification.objects.create(
+            recipient=recipient,
+            issuer=issuer,
+            content=content
+        )
+        
+        # Serializamos y devolvemos la respuesta
+        serializer = self.get_serializer(notification)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
