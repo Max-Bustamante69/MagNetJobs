@@ -6,8 +6,8 @@ import { HiUserAdd, HiUserRemove } from "react-icons/hi";
 import { FollowRequest } from "./FollowAction";
 import {deleteFriendship} from "./UnFollowAction";
 
-function FollowButton({ user, userOnSession }) {
-  const [isFollowing, setIsFollowing] = useState(userOnSession.following.includes(user.id));
+function FollowButton( { user, userOnSession } ) {
+  const [isFollowing, setIsFollowing] = useState(Array.isArray(userOnSession.following) && userOnSession.following.includes(user.id));
 
   const handleFollowToggle = async () => {
     // Llama a FollowRequest solo cuando el icono sea clickeado

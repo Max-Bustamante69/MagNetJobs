@@ -1,16 +1,30 @@
-
-import LoadUser from "@/utils/LoadUser";
+"use client";
+import { getUserContext } from "@/utils/GetUserContext";
 import Icons from "../General/Icons";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import FollowButton from "../Friends/FollowButton";
+import { useEffect, useState } from 'react';
+import Loader from "@/components/ui/loader";
 
+function UserCard({ user }) {
+  const [userOnSession, setUserOnSession] = useState(null);
 
- async function UserCard({ user }) {
-  const userOnSessionName = 'Maxbustamante';
-  const userOnSession= await LoadUser(userOnSessionName);
+  // Cargar usuario en sesión cuando el componente se monte
+  useEffect(() => {
+    async function loadUser() {
+      const sessionUser = await getUserContext();
+      setUserOnSession(sessionUser);
+    }
 
+    loadUser();
+  }, []); // Solo ejecutar una vez cuando el componente se monta
+
+  // Asegurarse de que el usuario en sesión se ha cargado
+  if (!userOnSession) {
+    return <Loader />; // Mostrar un mensaje de carga mientras obtenemos el usuario
+  }
     return (
       <div className="relative rounded-xl w-full group">
         <Card className="relative bg-black border-gray-400 flex justify-around p-8 z-10 ">
@@ -26,7 +40,7 @@ import FollowButton from "../Friends/FollowButton";
                 {user.username.toUpperCase()}
               </h2>
               {/*Esta verificación debe cambiarse por el id del usuario con sesión iniciada*/}
-              {user.username== userOnSessionName &&(
+              {user.username== userOnSession.username &&(
               <Icons IconName={HiOutlinePencilAlt}/>)}
             </div>
             <div className="flex gap-4">
@@ -40,7 +54,7 @@ import FollowButton from "../Friends/FollowButton";
                 <strong>43</strong> Seguidos
               </p>
                {/* Renderizar el botón de seguimiento solo si el usuario no es el mismo */}
-            {user.username !== userOnSessionName && (
+            {user.username !== userOnSession.username && (
               <FollowButton user={user} userOnSession={userOnSession}  />)}
             </div>
 

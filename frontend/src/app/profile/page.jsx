@@ -1,10 +1,10 @@
-import { loadUsers } from "../../utils/LoadUsers";
 import UserCard from "../components/Profile/UserCard";
 import LoadUser  from "@/utils/LoadUser";
+import { getUserContext } from "@/utils/GetUserContext";
 
 async function Profile() {
   {/*Esta carga debe cambiarse por el id del usuario con sesión iniciada*/}
-  const user = await LoadUser("Maxbustamante");
+  const user = await getUserContext();
   
   return (
     <div className="flex flex-col items-center gap-10">
