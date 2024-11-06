@@ -13,7 +13,7 @@ import { HiMiniPlusSmall } from "react-icons/hi2";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { loadUsers } from "../../../utils/LoadUsers";
+import { LoadUser } from "../../../utils/LoadUser";
 import Icons from "../General/icons";
 
 function PublicationForm() {
@@ -22,9 +22,10 @@ function PublicationForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const users = await loadUsers();
-    const user = users[Math.floor(Math.random() * users.length)];
-    const userId = user.id;
+    const userName = 'Maxbustamante';
+    const user= await LoadUser(userName);
+    const userId= user.id;
+
 
     const formData = new FormData();
     formData.append("content", text);
