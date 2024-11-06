@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
 # Helper function to define the user-specific upload path
@@ -97,3 +97,8 @@ def add_to_following(sender, instance, created, **kwargs):
     if created:
         # Add the friend to the following field of the user
         instance.user.following.add(instance.friend)
+
+@receiver(post_delete, sender=Friendship)
+def delete_of_following(sender, instance , **kwargs):
+        # Delete the friend of the following field of the user
+        instance.user.following.remove(instance.friend)

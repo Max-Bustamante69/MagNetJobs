@@ -160,3 +160,11 @@ class FriendshipViewSet (viewsets.ModelViewSet):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Friendship.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    @action(detail=False, methods=['get'], url_path='get_id/(?P<user_id>[^/.]+)/(?P<friend_id>[^/.]+)')
+    def get_friendship_id(self, request, user_id, friend_id):
+        try:
+            friendship = Friendship.objects.get(user_id=user_id, friend_id=friend_id)
+            return Response({'friendship_id': friendship.id}, status=status.HTTP_200_OK)
+        except Friendship.DoesNotExist:
+            return Response({'error': 'Friendship not found'}, status=status.HTTP_404_NOT_FOUND)
