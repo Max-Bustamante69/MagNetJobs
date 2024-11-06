@@ -16,12 +16,11 @@ export async function FriendShipCreation(user, userOnSession)
         console.error("Error response:", errorData);
         throw new Error(errorData.error || "Error creating friendship");
       }
-    
+      alert("¡Solicitud de amistad confirmada!");
       return await response.json();
 }
 export function FollowRequest(user, userOnSession) {
     
-    alert("¡Solicitud enviada!");
     {/*Cambiar la condición true por la lógica de confirmación de solicitud */}
     if (true) {
         try {
