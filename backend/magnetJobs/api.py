@@ -180,6 +180,7 @@ class NotificationViewSet(viewsets.ModelViewSet):
         data = request.data
         recipient_id = data.get('recipient')
         issuer_id = data.get('issuer')
+        post_id= data.get('post')
         content = data.get('content')
 
         try:

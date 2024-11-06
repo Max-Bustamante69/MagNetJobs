@@ -58,4 +58,4 @@ class NotificationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model= Notification
-        fields = ['id', 'content', 'issuer', 'issuer_name', 'created_at']
+        fields = '__all__'
