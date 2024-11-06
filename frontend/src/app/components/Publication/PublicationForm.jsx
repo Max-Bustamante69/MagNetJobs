@@ -13,23 +13,29 @@ import { HiMiniPlusSmall } from "react-icons/hi2";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { loadUsers } from "../../../utils/LoadUsers";
+import { LoadUser } from "../../../utils/LoadUser";
+import Icons from "../General/icons";
+import { getUserContext } from "@/utils/GetUserContext";
 
 function PublicationForm() {
   const [text, setText] = useState("");
   const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const users = await loadUsers();
-    const user = users[Math.floor(Math.random() * users.length)];
-    const userId = user.id;
+    setLoading(true); // Inicia el estado de carga
 
-    const formData = new FormData();
-    formData.append("content", text);
-    formData.append("image", image); // agregar archivo de imagen
-    formData.append("user", userId);
+   
     try {
+      const user = await getUserContext();
+      const userId = user.id;
+
+      const formData = new FormData();
+      formData.append("content", text);
+      formData.append("image", image); // agregar archivo de imagen
+      formData.append("user", userId);
+
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/posts/`,
         {
@@ -47,13 +53,16 @@ function PublicationForm() {
       console.log(data);
     } catch (error) {
       console.error("Error submitting the form:", error);
+    }finally {
+      setLoading(false);
+      alert("Publicación subida correctamente.")
     }
   };
 
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <HiMiniPlusSmall size={"35px"} color="#414141" />
+      <Icons IconName={HiMiniPlusSmall} />
       </AlertDialogTrigger>
 
       <AlertDialogContent className="text-white bg-transparent p-0 overflow-hidden border-4 border-white border-opacity-30  shadow-[30px_30px_30px_-25px_rgba(255,255,255,0.2)]">

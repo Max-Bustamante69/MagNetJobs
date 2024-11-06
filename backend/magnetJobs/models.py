@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 
 # Helper function to define the user-specific upload path
 def user_directory_path(instance, filename, avatar=False):
@@ -83,3 +85,20 @@ class Notification(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='notifications_linked', null=True, blank=True)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+class Friendship(models.Model):
+    user = models.ForeignKey(Users, related_name='friendships', on_delete=models.CASCADE)
+    friend = models.ForeignKey(Users, related_name='friends', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+# Signal to add 'friend' to 'following' when a Friendship is created
+@receiver(post_save, sender=Friendship)
+def add_to_following(sender, instance, created, **kwargs):
+    if created:
+        # Add the friend to the following field of the user
+        instance.user.following.add(instance.friend)
+
+@receiver(post_delete, sender=Friendship)
+def delete_of_following(sender, instance , **kwargs):
+        # Delete the friend of the following field of the user
+        instance.user.following.remove(instance.friend)

@@ -1,16 +1,17 @@
-import { loadUsers } from "../../utils/LoadUsers";
 import UserCard from "../components/Profile/UserCard";
+import LoadUser  from "@/utils/LoadUser";
+import { getUserContext } from "@/utils/GetUserContext";
 
 async function Profile() {
-  const users = await loadUsers();
-  const user = users[0];
-
+  {/*Esta carga debe cambiarse por el id del usuario con sesión iniciada*/}
+  const user = await getUserContext();
+  
   return (
     <div className="flex flex-col items-center gap-10">
       <section className="w-2/3 2xl:w-1/2 mt-12 flex flex-col items-center gap-12">
         <h2 className="font-extrabold text-7xl">
           Your{" "}
-          <span className="bg-gradient-to-r text-transparent from-white to-blue-400 bg-clip-text">
+          <span className="bg-gradient-to-r text-transparent from-white to-green-700 bg-clip-text">
             Profile
           </span>
         </h2>
@@ -18,22 +19,22 @@ async function Profile() {
 
         <article className="flex w-full ">
           <img
-            class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+            className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
             src="/docs/images/people/profile-picture-5.jpg"
             alt="Bordered avatar"
           />
           <img
-            class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+            className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
             src="/docs/images/people/profile-picture-5.jpg"
             alt="Bordered avatar"
           />
           <img
-            class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+            className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
             src="/docs/images/people/profile-picture-5.jpg"
             alt="Bordered avatar"
           />
           <img
-            class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+            className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
             src="/docs/images/people/profile-picture-5.jpg"
             alt="Bordered avatar"
           />
@@ -97,94 +98,94 @@ async function Profile() {
           </div>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="grid gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid gap-4">
             <div>
               <img
-                class="h-auto max-w-full rounded-lg"
+                className="h-auto max-w-full rounded-lg"
                 src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg"
                 alt=""
               />
             </div>
             <div>
               <img
-                class="h-auto max-w-full rounded-lg"
+                className="h-auto max-w-full rounded-lg"
                 src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg"
                 alt=""
               />
             </div>
             <div>
               <img
-                class="h-auto max-w-full rounded-lg"
+                className="h-auto max-w-full rounded-lg"
                 src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg"
                 alt=""
               />
             </div>
           </div>
-          <div class="grid gap-4">
+          <div className="grid gap-4">
             <div>
               <img
-                class="h-auto max-w-full rounded-lg"
+                className="h-auto max-w-full rounded-lg"
                 src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg"
                 alt=""
               />
             </div>
             <div>
               <img
-                class="h-auto max-w-full rounded-lg"
+                className="h-auto max-w-full rounded-lg"
                 src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
                 alt=""
               />
             </div>
             <div>
               <img
-                class="h-auto max-w-full rounded-lg"
+                className="h-auto max-w-full rounded-lg"
                 src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg"
                 alt=""
               />
             </div>
           </div>
-          <div class="grid gap-4">
+          <div className="grid gap-4">
             <div>
               <img
-                class="h-auto max-w-full rounded-lg"
+                className="h-auto max-w-full rounded-lg"
                 src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg"
                 alt=""
               />
             </div>
             <div>
               <img
-                class="h-auto max-w-full rounded-lg"
+                className="h-auto max-w-full rounded-lg"
                 src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg"
                 alt=""
               />
             </div>
             <div>
               <img
-                class="h-auto max-w-full rounded-lg"
+                className="h-auto max-w-full rounded-lg"
                 src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg"
                 alt=""
               />
             </div>
           </div>
-          <div class="grid gap-4">
+          <div className="grid gap-4">
             <div>
               <img
-                class="h-auto max-w-full rounded-lg"
+                className="h-auto max-w-full rounded-lg"
                 src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
                 alt=""
               />
             </div>
             <div>
               <img
-                class="h-auto max-w-full rounded-lg"
+                className="h-auto max-w-full rounded-lg"
                 src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg"
                 alt=""
               />
             </div>
             <div>
               <img
-                class="h-auto max-w-full rounded-lg"
+                className="h-auto max-w-full rounded-lg"
                 src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg"
                 alt=""
               />

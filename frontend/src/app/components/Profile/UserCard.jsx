@@ -1,12 +1,30 @@
-
-
+"use client";
+import { getUserContext } from "@/utils/GetUserContext";
+import Icons from "../General/Icons";
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { HiOutlinePencilAlt } from "react-icons/hi";
+import FollowButton from "../Friends/FollowButton";
+import { useEffect, useState } from 'react';
+import Loader from "@/components/ui/loader";
 
- function UserCard({ user }) {
+function UserCard({ user }) {
+  const [userOnSession, setUserOnSession] = useState(null);
 
+  // Cargar usuario en sesión cuando el componente se monte
+  useEffect(() => {
+    async function loadUser() {
+      const sessionUser = await getUserContext();
+      setUserOnSession(sessionUser);
+    }
 
+    loadUser();
+  }, []); // Solo ejecutar una vez cuando el componente se monta
+
+  // Asegurarse de que el usuario en sesión se ha cargado
+  if (!userOnSession) {
+    return <Loader />; // Mostrar un mensaje de carga mientras obtenemos el usuario
+  }
     return (
       <div className="relative rounded-xl w-full group">
         <Card className="relative bg-black border-gray-400 flex justify-around p-8 z-10 ">
@@ -21,8 +39,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
               <h2 className="text-white text-4xl font-bold">
                 {user.username.toUpperCase()}
               </h2>
-
-              <Button variant="outline">Editar Perfil</Button>
+              {/*Esta verificación debe cambiarse por el id del usuario con sesión iniciada*/}
+              {user.username== userOnSession.username &&(
+              <Icons IconName={HiOutlinePencilAlt}/>)}
             </div>
             <div className="flex gap-4">
               <p className="text-white">
@@ -34,6 +53,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
               <p className="text-white">
                 <strong>43</strong> Seguidos
               </p>
+               {/* Renderizar el botón de seguimiento solo si el usuario no es el mismo */}
+            {user.username !== userOnSession.username && (
+              <FollowButton user={user} userOnSession={userOnSession}  />)}
             </div>
 
             <div className="flex flex-col gap-4 text-white">
@@ -42,7 +64,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
             </div>
           </div>
         </Card>
-        <div className="absolute rounded-xl inset-0 bg-gradient-to-r from-white  to-blue-400 blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-1000 group-hover:duration-200"></div>
+        <div className="absolute rounded-xl inset-0 bg-gradient-to-r from-white  to-green-700 blur-xl opacity-50 group-hover:opacity-100 transition-opacity duration-1000 group-hover:duration-200"></div>
       </div>
 
       // from-blue-600 to-emerald-600 bg-clip-text
