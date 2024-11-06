@@ -6,7 +6,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Users
-        fields = ['id', 'username', 'email', 'avatar_image', 'bio', 'posts']  # Include necessary fields
+        fields = ['id', 'username', 'email', 'avatar_image', 'bio', 'posts', 'first_name', 'last_name']  # Include necessary fields
 
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:
