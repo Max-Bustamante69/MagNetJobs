@@ -8,8 +8,8 @@ export async function FriendShipCreation(user, userOnSession)
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          user_id: userOnSession.id,
-          friend_id: user.id,
+          user_id: userOnSession,
+          friend_id: user,
         }),
       });
     
