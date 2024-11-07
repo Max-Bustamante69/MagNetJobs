@@ -18,7 +18,7 @@ import {
   import SearchBar from "./SearchBar";
   import Icons from "./Icons";
 
-  function NavBar() {
+  function NavBar({showSearch}) {
    
     return (
       <nav className="flex justify-between items-start px-4">
@@ -28,7 +28,7 @@ import {
         </Link>
 
         {/* Search Bar in the Center */}
-        <SearchBar />
+        {showSearch && <SearchBar />}
 
         {/* Navigation Menu */}
         <NavigationMenu className="flex gap-4">
