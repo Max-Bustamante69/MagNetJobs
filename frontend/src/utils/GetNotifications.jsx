@@ -1,4 +1,11 @@
-export default async function getNotificationsByRecipient(recipientId) {
+import { getUserContext } from "@/utils/GetUserContext";
+export default async function getNotificationsByRecipient() {
+    const userOnSession = await getUserContext();  
+
+    if (!userOnSession) {
+        throw new Error('No se encontró el usuario en sesión');
+    }
+    const recipientId= userOnSession.id;
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/notifications/by_recipient/?recipient_id=${recipientId}`, {
             method: 'GET',
