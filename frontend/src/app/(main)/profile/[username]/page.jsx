@@ -7,7 +7,7 @@ import LoadUser from "@/utils/LoadUser";
 async function Profile({ params }) {
   const { username } = params;
 
-  console.log(username);
+
   const user = await LoadUser(username);
 
   if (!user) {

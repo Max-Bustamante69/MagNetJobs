@@ -9,30 +9,13 @@ import { useEffect, useState } from 'react';
 import Loader from "@/components/ui/loader";
 
 function UserCard({ user }) {
-  const [userOnSession, setUserOnSession] = useState(null);
-  user = {
-    id: "c5dswrglyhb5shr2",
-    username: "Laurikisa",
-    email: "test@beispiel.de",
-    avatar_image: null,
-    bio: null,
-    posts: [14],
-    first_name: "Gottfried",
-    last_name: "Leibniz",
-  };
+  
 
-  // Cargar usuario en sesión cuando el componente se monte
-  useEffect(() => {
-    async function loadUser() {
-      const sessionUser = await getUserContext();
-      setUserOnSession(sessionUser);
-    }
 
-    loadUser();
-  }, []); // Solo ejecutar una vez cuando el componente se monta
+
 
   // Asegurarse de que el usuario en sesión se ha cargado
-  if (!userOnSession) {
+  if (!user) {
     return <Loader />; // Mostrar un mensaje de carga mientras obtenemos el usuario
   }
     return (
@@ -52,7 +35,7 @@ function UserCard({ user }) {
               <h2 className="text-white text-lg sm:text-xl lg:text-2xl font-semibold">
                 {user.username?.toUpperCase()}
               </h2>
-              {user.username === userOnSession.username && (
+              {user.username === user.username && (
                 <Icons IconName={HiOutlinePencilAlt} />
               )}
             </div>
@@ -66,8 +49,8 @@ function UserCard({ user }) {
               <p className="text-white text-sm sm:text-base lg:text-lg font-semibold">
                 <strong className="mr-1">43</strong> Seguidos
               </p>
-              {user.username !== userOnSession.username && (
-                <FollowButton user={user} userOnSession={userOnSession} />
+              {user.username !== user.username && (
+                <FollowButton user={user} />
               )}
             </div>
             <div className="flex flex-col gap-2 text-white font-bold">

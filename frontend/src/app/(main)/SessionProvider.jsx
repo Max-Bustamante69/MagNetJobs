@@ -1,5 +1,5 @@
-"use client";
-
+"use client"
+// SessionProvider.js (Client Component)
 import { createContext, useContext } from "react";
 
 const SessionContext = createContext();
@@ -13,7 +13,7 @@ export function SessionProvider({ children, value }) {
 export function useUser() {
   const context = useContext(SessionContext);
   if (!context) {
-    throw new Error("useSession must be used within a SessionProvider");
+    throw new Error("useUser must be used within a SessionProvider");
   }
   return context;
 }

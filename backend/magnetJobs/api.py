@@ -134,11 +134,11 @@ class FriendshipViewSet (viewsets.ModelViewSet):
     queryset = Friendship.objects.all()
 
     def create(self, request, *args, **kwargs):
-        user_id = request.data.get("user_id")
-        friend_id = request.data.get("friend_id")
+        user_id = request.data.get("user")
+        friend_id = request.data.get("friend")
 
         if not user_id or not friend_id:
-            return Response({"error": "User IDs are required"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": f'User IDs are required, recieved {user_id} and {friend_id}.'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             user = Users.objects.get(id=user_id)

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -13,11 +15,13 @@ import { HiMiniPlusSmall } from "react-icons/hi2";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { LoadUser } from "../../../utils/LoadUser";
 import Icons from "../General/icons";
 import { getUserContext } from "@/utils/GetUserContext";
+import { useRouter } from "next/navigation"; // Updated import
 
 function PublicationForm() {
+
+  const router = useRouter(); // Updated import
   const [text, setText] = useState("");
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -26,7 +30,6 @@ function PublicationForm() {
     e.preventDefault();
     setLoading(true); // Inicia el estado de carga
 
-   
     try {
       const user = await getUserContext();
       const userId = user.id;
@@ -50,19 +53,19 @@ function PublicationForm() {
       }
 
       const data = await res.json();
-      console.log(data);
     } catch (error) {
       console.error("Error submitting the form:", error);
-    }finally {
+    } finally {
       setLoading(false);
-      alert("Publicación subida correctamente.")
+      alert("Publicación subida correctamente.");
+      router.refresh(); // Refresh the page
     }
   };
 
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-      <Icons IconName={HiMiniPlusSmall} />
+        <Icons IconName={HiMiniPlusSmall} />
       </AlertDialogTrigger>
 
       <AlertDialogContent className="text-white bg-transparent p-0 overflow-hidden border-4 border-white border-opacity-30  shadow-[30px_30px_30px_-25px_rgba(255,255,255,0.2)]">

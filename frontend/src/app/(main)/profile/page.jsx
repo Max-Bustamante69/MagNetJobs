@@ -1,11 +1,33 @@
 "use client"
 
-import UserCard from "@/app/components/Profile/UserCard";
-import { useUser } from "../SessionProvider";
+import UserCard from "@/app/(main)/components/Profile/UserCard";
+import { useUser } from "@/app/(main)/SessionProvider";
+import { useState, useEffect } from "react";
+import loadPosts from "@/utils/LoadPosts";
 
  function Profile() {
   {/*Esta carga debe cambiarse por el id del usuario con sesión iniciada*/}
-  const {user} = useUser();
+  const user = useUser();
+
+  const [posts, setPosts] = useState([]);
+  
+  const fetchPosts = async () => {
+    try {
+      const response = await loadPosts(user.id, 1, true);
+      setPosts(response.results);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchPosts();
+  }
+  , []);
+
+
+
+  
 
   return (
     <div className="flex flex-col items-center gap-y-40">
@@ -73,37 +95,16 @@ import { useUser } from "../SessionProvider";
           </div>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div class="grid gap-4">
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://i.pinimg.com/originals/57/38/e2/5738e21c98764c8fa1fc1e3a34c0b40a.jpg"
-              />
-            </div>
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://images.alphacoders.com/136/thumb-1920-1361079.png"
-              />
-            </div>
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://www.pixelstalk.net/wp-content/uploads/images6/Cool-Hollow-Knight-Wallpaper-HD.jpg"
-              />
-            </div>
-          </div>
-          <div class="grid gap-4">
-            <div>
-              <img
-                class="h-auto max-w-full rounded-lg"
-                src="https://e0.pxfuel.com/wallpapers/811/79/desktop-wallpaper-hollow-knight-hollow-knight-phone.jpg"
-              />
-            </div>
+        <div className=" columns-3 space-y-4 gap-4">
 
+            {posts.map((post) => (
+              <div key={post.id}>
+                <img class="h-auto max-w-full rounded-lg" src={post.image} />
+              </div>
+            ))}
           </div>
-        </div>
+        
+
       </section>
     </div>
   );
