@@ -37,47 +37,46 @@ function UserCard({ user }) {
   }
     return (
       <div className="relative rounded-xl w-full group">
-        <Card className="relative bg-black border-black flex justify-around p-8 z-10 ">
-          <div className="flex flex-col items-center justify-center">
-            <div className="relative">
-              <div className="size-2/3 h-auto bg-white rounded-full absolute top-0 blur-lg"></div>
-              <Avatar className="size-2/3 h-auto">
+        <Card className="relative bg-black border-black flex flex-col lg:flex-row justify-around items-center lg:items-start p-4 lg:p-8 z-10">
+          <div className="flex flex-col items-center justify-center mb-6 lg:mb-0 lg:mr-12">
+            <div className="relative group flex flex-col items-center justify-center">
+              <div className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44 bg-white rounded-full absolute top-0 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <Avatar className="w-28 h-28 sm:w-36 sm:h-36 lg:w-44 lg:h-44">
                 <AvatarImage src="https://images.squarespace-cdn.com/content/v1/606d159a953867291018f801/1619987722169-VV6ZASHHZNRBJW9X0PLK/Key_Art_02_layeredjpg.jpg?format=1500w" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </div>
           </div>
-          <div className="flex flex-col gap-y-4">
-            <div className="flex justify-between">
-              <h2 className="text-white text-xl font-semibold">
+          <div className="flex flex-col gap-y-6 lg:gap-y-4 text-center lg:text-left">
+            <div className="flex justify-center lg:justify-between items-center lg:items-start mb-4 lg:mb-2">
+              <h2 className="text-white text-lg sm:text-xl lg:text-2xl font-semibold">
                 {user.username?.toUpperCase()}
               </h2>
-              {/*Esta verificación debe cambiarse por el id del usuario con sesión iniciada*/}
-              {user.username == userOnSession.username && (
+              {user.username === userOnSession.username && (
                 <Icons IconName={HiOutlinePencilAlt} />
               )}
             </div>
-            <div className="flex gap-12">
-              <p className="text-white text-l font-semibold">
-                <strong>34</strong> Publicaciones
+            <div className="flex justify-center lg:justify-start gap-8 lg:gap-12">
+              <p className="text-white text-sm sm:text-base lg:text-lg font-semibold">
+                <strong className="mr-1">34</strong> Publicaciones
               </p>
-              <p className="text-white text-l font-semibold">
-                <strong>23</strong> Seguidores
+              <p className="text-white text-sm sm:text-base lg:text-lg font-semibold">
+                <strong className="mr-1">23</strong> Seguidores
               </p>
-              <p className="text-white text-l font-semibold">
-                <strong>43</strong> Seguidos
+              <p className="text-white text-sm sm:text-base lg:text-lg font-semibold">
+                <strong className="mr-1">43</strong> Seguidos
               </p>
-              {/* Renderizar el botón de seguimiento solo si el usuario no es el mismo */}
               {user.username !== userOnSession.username && (
                 <FollowButton user={user} userOnSession={userOnSession} />
               )}
             </div>
-
-            <div className="flex flex-col gap-4 text-white text-l font-bold ">
-              <p className="font-normal">
+            <div className="flex flex-col gap-2 text-white font-bold">
+              <p className="font-normal text-sm sm:text-base lg:text-lg">
                 {user.first_name + " " + user.last_name}
               </p>
-              <p> {user.employed ? "Empleado" : "Desempleado"} </p>
+              <p className="text-sm sm:text-base lg:text-lg">
+                {user.employed ? "Empleado" : "Desempleado"}
+              </p>
             </div>
           </div>
         </Card>
