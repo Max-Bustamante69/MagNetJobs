@@ -1,3 +1,5 @@
+import { sendFriendRequest } from "../Notifications/FriendRequestNotification";
+
 export async function FriendShipCreation(user, userOnSession)
 {
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/friendship/`, {
@@ -19,15 +21,12 @@ export async function FriendShipCreation(user, userOnSession)
       alert("¡Solicitud de amistad confirmada!");
       return await response.json();
 }
-export function FollowRequest(user, userOnSession) {
-    
-    {/*Cambiar la condición true por la lógica de confirmación de solicitud */}
-    if (true) {
+export function FollowRequest(user) {
         try {
-          FriendShipCreation(user, userOnSession);
+          sendFriendRequest(user);
           alert("¡Solicitud de amistad enviada con éxito!");
         } catch (error) {
           alert(error.message);
         }
-      } 
+      
 }
