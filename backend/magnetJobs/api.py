@@ -194,7 +194,7 @@ class NotificationViewSet(viewsets.ModelViewSet):
         issuer_id = data.get('issuer')
         post_id = data.get('post')
         content = data.get('content')
-        type = data.get('type', 'confirmación-amistad')
+        type = data.get('type', 'notificacion')
 
         try:
             recipient = Users.objects.get(id=recipient_id)
