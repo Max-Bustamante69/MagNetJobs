@@ -1,11 +1,12 @@
-import UserCard from "../components/Profile/UserCard";
-import LoadUser  from "@/utils/LoadUser";
-import { getUserContext } from "@/utils/GetUserContext";
+"use client"
 
-async function Profile() {
+import UserCard from "@/app/components/Profile/UserCard";
+import { useUser } from "../SessionProvider";
+
+ function Profile() {
   {/*Esta carga debe cambiarse por el id del usuario con sesión iniciada*/}
-  const user = await getUserContext();
-  const urls = [];
+  const {user} = useUser();
+
   return (
     <div className="flex flex-col items-center gap-y-40">
       <section className="w-2/3 2xl:w-1/2 mt-12 flex flex-col items-center gap-12">

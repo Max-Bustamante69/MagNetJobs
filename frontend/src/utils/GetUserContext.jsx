@@ -1,9 +1,14 @@
 "use server";
-import LoadUser from "@/utils/LoadUser";
+
+import { validateRequest } from "@/auth";
 export async function getUserContext()
 {
-    const userOnSessionName = 'maxinho';
-    const userOnSession= await LoadUser(userOnSessionName);
+    const session  = await validateRequest();
+    const userId = session?.user?.id;
+    
+    const user = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/${userId}`);
+    const userOnSession = await user.json();
+
 
     return userOnSession;
 }

@@ -1,6 +1,7 @@
 
 
-import ListPosts from '../app/components/Feed/InfiniteScroll'
+import ListPosts from '../components/Feed/InfiniteScroll'
+
 export default function Home() {
 
   return (
