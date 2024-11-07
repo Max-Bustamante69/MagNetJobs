@@ -223,3 +223,11 @@ class NotificationViewSet(viewsets.ModelViewSet):
         # Serializamos y devolvemos la respuesta
         serializer = self.get_serializer(notification)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    def destroy(self, request, pk=None):
+        try:
+            notification = self.get_object()  # Obtiene el objeto a eliminar
+            notification.delete()  # Elimina la amistad
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except notification.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
