@@ -56,7 +56,7 @@ class FriendshipSerializer(serializers.ModelSerializer):
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model= Notification
-        fields = ['id', 'recipient', 'issuer', 'post', 'content', 'created_at']
+        fields = ['id', 'recipient', 'issuer', 'post', 'content', 'created_at', 'type']
         extra_kwargs = {
             'post': {'required': False},  # Hacer que el campo post sea opcional
         }

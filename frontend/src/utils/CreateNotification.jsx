@@ -1,4 +1,4 @@
-export  default async function createNotification ({recipientId, issuerId, content, postId=null}){
+export  default async function createNotification ({recipientId, issuerId, content, type, postId=null}){
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/notifications/`, {
         method: 'POST',
@@ -9,7 +9,8 @@ export  default async function createNotification ({recipientId, issuerId, conte
             recipient: recipientId,  // ID del usuario que recibirá la notificación
             issuer: issuerId,        // ID del usuario que envía la notificación
             content: content,  // Contenido de la notificación
-            post: postId
+            post: postId,
+            type:type
         })
         });
 

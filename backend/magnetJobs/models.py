@@ -84,6 +84,7 @@ class Notification(models.Model):
     issuer = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='notifications_issued')
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='notifications_linked', null=True, blank=True)
     content = models.TextField()
+    type=models.TextField(default='confirmación-amistad')
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Friendship(models.Model):
