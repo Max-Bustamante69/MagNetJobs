@@ -226,8 +226,9 @@ class NotificationViewSet(viewsets.ModelViewSet):
     
     def destroy(self, request, pk=None):
         try:
-            notification = self.get_object()  # Obtiene el objeto a eliminar
-            notification.delete()  # Elimina la amistad
+            notification = Notification.objects.get(id=pk)
+            notification.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
-        except notification.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+        except Notification.DoesNotExist:
+            print(f"Notificación con ID {pk} no encontrada.")  # Agregar un log
+            return Response({'detail': 'Notificación no encontrada'}, status=status.HTTP_404_NOT_FOUND)

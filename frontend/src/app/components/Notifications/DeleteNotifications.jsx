@@ -1,12 +1,13 @@
 export async function deleteNotification(notificationId){
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/notifications/${notificationId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/notifications/${notificationId}/`, {
         method: 'DELETE',
       });
   
       if (response.ok) {
         console.log('Notificación eliminada con éxito');
-        // Aquí puedes actualizar el estado de la interfaz, como eliminarla de una lista
+        alert('Notificación eliminada con éxito');
+        window.location.reload();
       } else {
         console.error('Error al eliminar la notificación', await response.text());
       }
