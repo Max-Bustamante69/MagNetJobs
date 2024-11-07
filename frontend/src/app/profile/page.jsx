@@ -5,45 +5,19 @@ import { getUserContext } from "@/utils/GetUserContext";
 async function Profile() {
   {/*Esta carga debe cambiarse por el id del usuario con sesión iniciada*/}
   const user = await getUserContext();
-  
+  const urls = [];
   return (
-    <div className="flex flex-col items-center gap-10">
+    <div className="flex flex-col items-center gap-y-40">
       <section className="w-2/3 2xl:w-1/2 mt-12 flex flex-col items-center gap-12">
         <h2 className="font-extrabold text-7xl">
-          Your{" "}
-          <span className="bg-gradient-to-r text-transparent from-white to-green-700 bg-clip-text">
-            Profile
-          </span>
+          Your <span className="bg-gradient-to-r  bg-clip-text">Profile</span>
         </h2>
         <UserCard user={user} />
-
-        <article className="flex w-full ">
-          <img
-            className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-            src="/docs/images/people/profile-picture-5.jpg"
-            alt="Bordered avatar"
-          />
-          <img
-            className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-            src="/docs/images/people/profile-picture-5.jpg"
-            alt="Bordered avatar"
-          />
-          <img
-            className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-            src="/docs/images/people/profile-picture-5.jpg"
-            alt="Bordered avatar"
-          />
-          <img
-            className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-            src="/docs/images/people/profile-picture-5.jpg"
-            alt="Bordered avatar"
-          />
-        </article>
       </section>
 
       <section className="w-2/3 2xl:w-1/2 border-t border-white border-opacity-15">
-        <div className="flex justify-center gap-12  ">
-          <div className="flex gap-2  border-t border-white py-4 items-center">
+        <div className="flex justify-center gap-20 pb-4">
+          <div className="flex gap-4  border-t border-white py-4 items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -58,9 +32,9 @@ async function Profile() {
                 d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z"
               />
             </svg>
-            <p className="text-xs">POSTS</p>
+            <p className="text-s">POSTS</p>
           </div>
-          <div className="flex gap-2 border-t border-white py-4 items-center">
+          <div className="flex gap-2 border-t border-white py-4 items-center ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -76,7 +50,7 @@ async function Profile() {
               />
             </svg>
 
-            <p className="text-xs">SAVED</p>
+            <p className="text-s">SAVED</p>
           </div>
           <div className="flex gap-2  border-t border-white py-4 items-center">
             <svg
@@ -94,102 +68,39 @@ async function Profile() {
               />
             </svg>
 
-            <p className="text-xs">LIKES</p>
+            <p className="text-s">LIKES</p>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="grid gap-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="grid gap-4">
             <div>
               <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg"
-                alt=""
+                class="h-auto max-w-full rounded-lg"
+                src="https://i.pinimg.com/originals/57/38/e2/5738e21c98764c8fa1fc1e3a34c0b40a.jpg"
               />
             </div>
             <div>
               <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg"
-                alt=""
+                class="h-auto max-w-full rounded-lg"
+                src="https://images.alphacoders.com/136/thumb-1920-1361079.png"
               />
             </div>
             <div>
               <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg"
-                alt=""
+                class="h-auto max-w-full rounded-lg"
+                src="https://www.pixelstalk.net/wp-content/uploads/images6/Cool-Hollow-Knight-Wallpaper-HD.jpg"
               />
             </div>
           </div>
-          <div className="grid gap-4">
+          <div class="grid gap-4">
             <div>
               <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg"
-                alt=""
+                class="h-auto max-w-full rounded-lg"
+                src="https://e0.pxfuel.com/wallpapers/811/79/desktop-wallpaper-hollow-knight-hollow-knight-phone.jpg"
               />
             </div>
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg"
-                alt=""
-              />
-            </div>
-          </div>
-          <div className="grid gap-4">
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg"
-                alt=""
-              />
-            </div>
-          </div>
-          <div className="grid gap-4">
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="h-auto max-w-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg"
-                alt=""
-              />
-            </div>
+
           </div>
         </div>
       </section>
