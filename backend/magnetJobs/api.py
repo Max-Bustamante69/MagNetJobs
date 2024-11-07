@@ -6,6 +6,7 @@ from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
+from django.db import transaction
 
 
 
@@ -174,13 +175,24 @@ class NotificationViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         # Retorna todas las notificaciones del usuario , leídas y no leídas
-        return Notification.objects.filter(recipient=self.request.user).order_by('-created_at')
+        return Notification.objects.filter().order_by('-created_at')
+
+    @action(detail=False, methods=['get'])
+    def by_recipient(self, request):
+        recipient_id = request.query_params.get('recipient_id')  # Parámetro en la consulta (query)
+        if recipient_id is None:
+            return Response({"error": "El parámetro recipient_id es requerido."}, status=status.HTTP_400_BAD_REQUEST)
+
+        notifications = Notification.objects.filter(recipient_id=recipient_id).order_by('-created_at')
+        serializer = self.get_serializer(notifications, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
 
     def create(self, request, *args, **kwargs):
         data = request.data
         recipient_id = data.get('recipient')
         issuer_id = data.get('issuer')
-        post_id= data.get('post')
+        post_id = data.get('post')
         content = data.get('content')
 
         try:
@@ -189,12 +201,23 @@ class NotificationViewSet(viewsets.ModelViewSet):
         except Users.DoesNotExist:
             return Response({"error": "Usuario no encontrado."}, status=status.HTTP_404_NOT_FOUND)
         
-        notification = Notification.objects.create(
-            recipient=recipient,
-            issuer=issuer,
-            content=content
-        )
+        post = None
+        if post_id:
+            try:
+                post = Post.objects.get(id=post_id)
+            except Post.DoesNotExist:
+                return Response({"error": "Post no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+
+        with transaction.atomic():  # Asegura la atomicidad de la transacción
+            notification = Notification.objects.create(
+                recipient=recipient,
+                issuer=issuer,
+                post=post,
+                content=content
+            )
         
+        notification.save()
+
         # Serializamos y devolvemos la respuesta
         serializer = self.get_serializer(notification)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
