@@ -40,10 +40,8 @@ function UserCard({ user }) {
         <Card className="relative bg-black border-black flex justify-around p-8 z-10 ">
           <div className="flex flex-col items-center justify-center">
             <div className="relative">
-              <div className="size-72 bg-white rounded-full absolute top-0 blur-lg"> 
-
-              </div>
-              <Avatar className="size-72">
+              <div className="size-2/3 h-auto bg-white rounded-full absolute top-0 blur-lg"></div>
+              <Avatar className="size-2/3 h-auto">
                 <AvatarImage src="https://images.squarespace-cdn.com/content/v1/606d159a953867291018f801/1619987722169-VV6ZASHHZNRBJW9X0PLK/Key_Art_02_layeredjpg.jpg?format=1500w" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
@@ -60,13 +58,13 @@ function UserCard({ user }) {
               )}
             </div>
             <div className="flex gap-12">
-              <p className="text-white text-xl font-semibold">
+              <p className="text-white text-l font-semibold">
                 <strong>34</strong> Publicaciones
               </p>
-              <p className="text-white text-xl font-semibold">
+              <p className="text-white text-l font-semibold">
                 <strong>23</strong> Seguidores
               </p>
-              <p className="text-white text-xl font-semibold">
+              <p className="text-white text-l font-semibold">
                 <strong>43</strong> Seguidos
               </p>
               {/* Renderizar el botón de seguimiento solo si el usuario no es el mismo */}
@@ -75,7 +73,7 @@ function UserCard({ user }) {
               )}
             </div>
 
-            <div className="flex flex-col gap-4 text-white text-xl font-bold ">
+            <div className="flex flex-col gap-4 text-white text-l font-bold ">
               <p className="font-normal">
                 {user.first_name + " " + user.last_name}
               </p>
