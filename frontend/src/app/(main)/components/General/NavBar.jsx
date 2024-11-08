@@ -17,8 +17,19 @@ import PublicationForm from "../Publication/PublicationForm";
 import Logo from "./Logo";
 import SearchBar from "./SearchBar";
 import Icons from "./Icons";
+import { useUser } from "@/app/(main)/SessionProvider";
+import { usePathname } from "next/navigation";
 
-function NavBar({ showSearch }) {
+function NavBar() {
+  
+
+
+  const user = useUser();
+  const { username } = user || {};
+
+    const pathname = usePathname();
+    const showSearch = !pathname.includes("/profile");
+
   return (
     <nav className="flex justify-between items-start px-4">
       {/* Logo Section */}
@@ -84,7 +95,7 @@ function NavBar({ showSearch }) {
 
           {/* Profile */}
           <NavigationMenuItem>
-            <Link href="/profile" legacyBehavior passHref>
+            <Link href={`/profile/${username}`} legacyBehavior passHref>
               <NavigationMenuLink>
                 <Avatar className="size-10">
                   <AvatarImage src="https://images.squarespace-cdn.com/content/v1/606d159a953867291018f801/1619987722169-VV6ZASHHZNRBJW9X0PLK/Key_Art_02_layeredjpg.jpg?format=1500w" />
