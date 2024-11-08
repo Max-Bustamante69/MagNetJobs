@@ -70,7 +70,7 @@ function ListPosts({ initialPosts }) {
   return (
     <div className="flex flex-col items-center my-12">
       {posts.map((post) => (
-        <Post key={post.id} post={post} isLoading={loading} />
+        <Post className='w-1/3'   key={post.id} post={post} isLoading={loading} />
       ))}
       <div className="error">
         {error && <p>Error fetching more posts: {error.message}</p>}
