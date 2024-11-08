@@ -9,7 +9,7 @@ import Loader from "@/components/ui/loader";
 import LoadUsers from "@/utils/LoadUsers"
 
 
-function UserCard({ user, posts }) {
+function UserCard({ user, posts, isCurrentUser }) {
   
   
   const users = LoadUsers();
@@ -43,8 +43,13 @@ function UserCard({ user, posts }) {
               <h2 className="text-white text-lg sm:text-xl lg:text-2xl font-semibold">
                 {user.username?.toUpperCase()}
               </h2>
-              {user.username === user.username && (
-                <Icons IconName={HiOutlinePencilAlt} />
+              {isCurrentUser ? (
+                <Icons
+                  IconName={HiOutlinePencilAlt}
+                  className="text-white text-lg cursor-pointer"
+                />
+              ) : (
+                <FollowButton user={user}  />
               )}
             </div>
             <div className="flex justify-center lg:justify-start gap-8 lg:gap-12">
@@ -52,14 +57,14 @@ function UserCard({ user, posts }) {
                 <strong className="mr-1">{posts || 0}</strong> Publicaciones
               </p>
               <p className="text-white text-sm sm:text-base lg:text-lg font-semibold">
-                <strong className="mr-1">{followers.length || 0}</strong> Seguidores
+                <strong className="mr-1">{followers.length || 0}</strong>{" "}
+                Seguidores
               </p>
               <p className="text-white text-sm sm:text-base lg:text-lg font-semibold">
-                <strong className="mr-1">{user.following.length}</strong> Seguidos
+                <strong className="mr-1">{user.following.length}</strong>{" "}
+                Seguidos
               </p>
-              {user.username !== user.username && (
-                <FollowButton user={user} />
-              )}
+              {user.username !== user.username && <FollowButton user={user} />}
             </div>
             <div className="flex flex-col gap-2 text-white font-bold">
               <p className="font-normal text-sm sm:text-base lg:text-lg">

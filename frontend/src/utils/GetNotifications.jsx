@@ -1,0 +1,29 @@
+import { getUserContext } from "@/utils/GetUserContext";
+export default async function getNotificationsByRecipient() {
+    const userOnSession = await getUserContext();  
+
+    if (!userOnSession) {
+        throw new Error('No se encontró el usuario en sesión');
+    }
+    const recipientId= userOnSession.id;
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/notifications/by_recipient/?recipient_id=${recipientId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(`Error al obtener las notificaciones: ${errorData.detail || response.statusText}`);
+        }
+
+        const notifications = await response.json();
+        console.log('Notificaciones obtenidas:', notifications);
+        return notifications;  // Devuelve las notificaciones obtenidas
+    } catch (error) {
+        console.error('Error al obtener las notificaciones:', error);
+        return null;  // O maneja el error según necesites
+    }
+}

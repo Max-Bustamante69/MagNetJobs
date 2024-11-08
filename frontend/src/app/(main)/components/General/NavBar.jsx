@@ -8,19 +8,18 @@ import {
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { HiChatAlt2 } from "react-icons/hi";
-import { HiChatAlt } from "react-icons/hi";
 import { HiOutlineBell } from "react-icons/hi";
 import { HiNewspaper } from "react-icons/hi2";
 import { HiOutlineBriefcase } from "react-icons/hi2";
 import Image from "next/image";
-import PublicationForm from "../Publication/PublicationForm";
+import PublicationForm from "@/app/(main)/components/Publication/PublicationForm"
 import Logo from "./Logo";
 import SearchBar from "./SearchBar";
 import Icons from "./Icons";
 import { usePathname } from "next/navigation";
 import { useState } from 'react';
 import { useUser } from "@/app/(main)/SessionProvider";
-import { logout } from "@/app/(auth)/action";
+
 
 
 
@@ -87,23 +86,8 @@ function NavBar() {
              <PublicationForm />
            </NavigationMenuItem>
 
-           {/* Private Chat */}
-           <NavigationMenuItem>
-             <Link href="/chat" legacyBehavior passHref>
-               <NavigationMenuLink>
-                 <Icons IconName={HiChatAlt2} />
-               </NavigationMenuLink>
-             </Link>
-           </NavigationMenuItem>
 
-           {/* Forum */}
-           <NavigationMenuItem>
-             <Link href="/forum" legacyBehavior passHref>
-               <NavigationMenuLink>
-                 <Icons IconName={HiChatAlt} />
-               </NavigationMenuLink>
-             </Link>
-           </NavigationMenuItem>
+
 
            {/* Notifications */}
            <NavigationMenuItem>
@@ -154,16 +138,8 @@ function NavBar() {
            <li>
              <PublicationForm />
            </li>
-           <li>
-             <Link href="/chat" className="py-2 px-4">
-               <Icons IconName={HiChatAlt2} />
-             </Link>
-           </li>
-           <li>
-             <Link href="/forum" className="py-2 px-4">
-               <Icons IconName={HiChatAlt} />
-             </Link>
-           </li>
+
+
            <li>
              <Link href="/notification" className="py-2 px-4">
                <Icons IconName={HiOutlineBell} />

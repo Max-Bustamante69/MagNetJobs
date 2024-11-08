@@ -1,11 +1,12 @@
 from rest_framework import viewsets, permissions, status
-from .models import Users, Post, Friendship
-from .serializers import UsersSerializer, PostSerializer, UserDetailSerializer, FriendshipSerializer
+from .models import Users, Post, Friendship, Notification
+from .serializers import UsersSerializer, PostSerializer, UserDetailSerializer, FriendshipSerializer, NotificationSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
+from django.db import transaction
 
 
 
@@ -182,3 +183,66 @@ class FriendshipViewSet (viewsets.ModelViewSet):
             return Response({'friendship_id': friendship.id}, status=status.HTTP_200_OK)
         except Friendship.DoesNotExist:
             return Response({'error': 'Friendship not found'}, status=status.HTTP_404_NOT_FOUND)
+
+class NotificationViewSet(viewsets.ModelViewSet):
+    serializer_class = NotificationSerializer
+
+    def get_queryset(self):
+        # Retorna todas las notificaciones del usuario , leídas y no leídas
+        return Notification.objects.filter().order_by('-created_at')
+
+    @action(detail=False, methods=['get'])
+    def by_recipient(self, request):
+        recipient_id = request.query_params.get('recipient_id')  # Parámetro en la consulta (query)
+        if recipient_id is None:
+            return Response({"error": "El parámetro recipient_id es requerido."}, status=status.HTTP_400_BAD_REQUEST)
+
+        notifications = Notification.objects.filter(recipient_id=recipient_id).order_by('-created_at')
+        serializer = self.get_serializer(notifications, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+
+    def create(self, request, *args, **kwargs):
+        data = request.data
+        recipient_id = data.get('recipient')
+        issuer_id = data.get('issuer')
+        post_id = data.get('post')
+        content = data.get('content')
+        type = data.get('type', 'notificacion')
+
+        try:
+            recipient = Users.objects.get(id=recipient_id)
+            issuer = Users.objects.get(id=issuer_id)
+        except Users.DoesNotExist:
+            return Response({"error": "Usuario no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+        
+        post = None
+        if post_id:
+            try:
+                post = Post.objects.get(id=post_id)
+            except Post.DoesNotExist:
+                return Response({"error": "Post no encontrado."}, status=status.HTTP_404_NOT_FOUND)
+
+        with transaction.atomic():  # Asegura la atomicidad de la transacción
+            notification = Notification.objects.create(
+                recipient=recipient,
+                issuer=issuer,
+                post=post,
+                content=content,
+                type=type
+            )
+        
+        notification.save()
+
+        # Serializamos y devolvemos la respuesta
+        serializer = self.get_serializer(notification)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    def destroy(self, request, pk=None):
+        try:
+            notification = Notification.objects.get(id=pk)
+            notification.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Notification.DoesNotExist:
+            print(f"Notificación con ID {pk} no encontrada.")  # Agregar un log
+            return Response({'detail': 'Notificación no encontrada'}, status=status.HTTP_404_NOT_FOUND)

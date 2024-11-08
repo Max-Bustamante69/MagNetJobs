@@ -20,6 +20,7 @@ export async function deleteFriendship(user, friend) {
         }
         alert("Amistad eliminada correctamente");
         console.log('Amistad eliminada correctamente');
+        window.location.reload();
     } catch (error) {
         console.error('Error en la solicitud de eliminación de la amistad:', error);
     }

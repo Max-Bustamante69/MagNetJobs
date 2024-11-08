@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Users, Post, Comment, Media, Friendship
+from .models import Users, Post, Comment, Media, Friendship, Notification
 
 class UserDetailSerializer(serializers.ModelSerializer):
     posts = serializers.PrimaryKeyRelatedField(many=True, read_only=True)  # Include post IDs in user details
@@ -52,3 +52,11 @@ class FriendshipSerializer(serializers.ModelSerializer):
     class Meta:
         model= Friendship
         fields='__all__'
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= Notification
+        fields = ['id', 'recipient', 'issuer', 'post', 'content', 'created_at', 'type']
+        extra_kwargs = {
+            'post': {'required': False},  # Hacer que el campo post sea opcional
+        }

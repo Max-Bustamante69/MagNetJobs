@@ -56,11 +56,11 @@ function ProfilePostFeed({
                 {user.username}`s Posts
               </h2>
             </div>
-            <div className="scroll-snap-y snap-mandatory overflow-y-scroll bg-black h-full no-scrollbar">
+            <div className="w-full flex flex-col items-center scroll-snap-y snap-mandatory overflow-y-scroll bg-black h-full no-scrollbar">
               {posts.map((post, index) => (
                 <div
                   key={post.id}
-                  className={`snap-start bg-black ${
+                  className={`snap-start bg-black w-full flex justify-center ${
                     index === startPostIndex ? "scroll-mt-0" : ""
                   }`}
                   ref={(el) => {

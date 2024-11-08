@@ -6,8 +6,9 @@ import formatTimeAgo from "@/utils/FormatTimeAgo";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SkeletonCard } from "@/components/SkeletonCard";
 import { useUser } from "@/utils/GetUserById";
-import React, { useState } from "react";
+import React, { useState,  useEffect } from "react";
 import { useUser as getCurrentUser } from "../../SessionProvider";
+import Link from "next/link";
 
 const Post = React.memo(function Post({ post, isLoading, className = "" }) {
   const {
@@ -16,9 +17,9 @@ const Post = React.memo(function Post({ post, isLoading, className = "" }) {
     isError: isUserError,
   } = useUser(post.user);
   const [isLiked, setIsLiked] = useState(false); // Track like state
+  const [likes , setLikes] = useState(post.likes_count); // Track like count
   const currentUser = getCurrentUser(); // Get current user session
   const previousLike = post.likes.includes(currentUser.id); // Check if user has liked post
-  console.log(post.likes, currentUser.id, previousLike);
 
   if (isLoading || isUserLoading) return <SkeletonCard className="w-full" />; // Show loader if parent is loading or user data is not yet fetched
   if (isUserError) return <p>Error loading user</p>;
@@ -41,13 +42,20 @@ const Post = React.memo(function Post({ post, isLoading, className = "" }) {
 
       if (response.ok) {
         setIsLiked(!isLiked); // Toggle like state
+        setLikes(likes + 1); // Update like count
       } else {
         console.error("Failed to like post");
       }
     } catch (error) {
       console.error("Error liking post:", error);
-    }
+    } 
   };
+
+
+
+  
+
+
 
   return (
     <article
@@ -64,9 +72,11 @@ const Post = React.memo(function Post({ post, isLoading, className = "" }) {
           />
           <AvatarFallback>{user?.username}</AvatarFallback>
         </Avatar>
-        <h1 className="text-lg capitalize font-semibold hover:underline">
-          {user?.username}
-        </h1>
+        <Link href={`/profile/${user?.username}`} >
+          <h1 className="text-lg capitalize font-semibold hover:underline">
+            {user?.username}
+          </h1>
+        </Link>
         <p className="opacity-60 text-lg">{formatTimeAgo(post.created_at)}</p>
       </div>
       <div className="flex justify-center">
@@ -85,7 +95,7 @@ const Post = React.memo(function Post({ post, isLoading, className = "" }) {
         )}
       </div>
       <div id="post-actions" className="flex items-center space-x-2">
-        <p>{post.likes_count}</p>
+        <p>{likes}</p>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill={isLiked ? "red" : "none"}
