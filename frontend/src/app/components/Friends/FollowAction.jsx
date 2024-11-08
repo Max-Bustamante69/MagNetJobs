@@ -19,7 +19,9 @@ export async function FriendShipCreation(user, userOnSession)
         throw new Error(errorData.error || "Error creating friendship");
       }
       alert("¡Solicitud de amistad confirmada!");
-      return await response.json();
+      const data = await response.json();
+      console.log('amistad creada:', data);
+      return data;
 }
 export function FollowRequest(user) {
         try {

@@ -10,8 +10,8 @@ import {
 import formatTimeAgo from "@/utils/formatTimeAgo";
 import { deleteNotification } from "./DeleteNotifications";
 import { HiOutlineX } from "react-icons/hi";
-import Icons from "../General/Icons";
 import { FriendShipCreation } from "../Friends/FollowAction";
+import { Button } from "@/components/ui/button";
 
 export default function renderNotification(notification){
     switch (notification.type) {
@@ -34,12 +34,17 @@ export default function renderNotification(notification){
                             <p>{notification.content}</p>
                         </CardContent>
                         <CardFooter>
-                            <div className="flex flex-row justify-between">
-                                <p>{formatTimeAgo(notification.created_at)}</p>
-                                <p onClick={()=> FriendShipCreation(notification.recipient, notification.issuer)}>aceptar</p>
-
+                            <div className="flex justify-between items-center w-full">
+                                <button  
+                                onClick={async ()=> {
+                                    await FriendShipCreation(notification.recipient, notification.issuer)
+                                    deleteNotification(notification.id)
+                                }} 
+                                className="text-gray-600 hover:text-green-700 transition duration-300 ease-in-out cursor-pointer text-sm">aceptar</button>
+                                <p className="text-sm text-gray-500">{formatTimeAgo(notification.created_at)} ago</p>
                             </div>
                         </CardFooter>
+
                     </Card>
                 </div>
             );
