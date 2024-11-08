@@ -1,5 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import UserCard from "@/app/components/Profile/UserCard";
+import UserCard from "@/app/(main)/components/Profile/UserCard";
 import LoadUser from "@/utils/LoadUser";
 
 
