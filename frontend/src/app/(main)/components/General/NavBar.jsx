@@ -20,6 +20,7 @@ import Icons from "./Icons";
 import { usePathname } from "next/navigation";
 import { useState } from 'react';
 import { useUser } from "@/app/(main)/SessionProvider";
+import { logout } from "@/app/(auth)/action";
 
 
 
@@ -42,6 +43,8 @@ function NavBar() {
          <Logo />
        </Link>
      </div>
+
+
 
      {/* Search Bar in the Center */}
      {showSearch && (
@@ -131,7 +134,7 @@ function NavBar() {
 
            {/* Profile */}
            <NavigationMenuItem>
-             <Link href="/profile" legacyBehavior passHref>
+             <Link href={`/profile/${username}`} legacyBehavior passHref>
                <NavigationMenuLink>
                  <Avatar className="size-10">
                    <AvatarImage src="https://images.squarespace-cdn.com/content/v1/606d159a953867291018f801/1619987722169-VV6ZASHHZNRBJW9X0PLK/Key_Art_02_layeredjpg.jpg?format=1500w" />

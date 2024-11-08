@@ -1,16 +1,24 @@
 "use client";
-import { getUserContext } from "@/utils/GetUserContext";
+
 import Icons from "../General/Icons";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import FollowButton from "../Friends/FollowButton";
-import { useEffect, useState } from 'react';
 import Loader from "@/components/ui/loader";
+import LoadUsers from "@/utils/LoadUsers"
 
-function UserCard({ user }) {
+
+function UserCard({ user, posts }) {
   
-
+  
+  const users = LoadUsers();
+  let followers = 0
+  for (let i = 0; i < users.length; i++) {
+    if (users[i].following.includes(user.id)) {
+      followers++
+    }
+  }
 
 
 
@@ -41,13 +49,13 @@ function UserCard({ user }) {
             </div>
             <div className="flex justify-center lg:justify-start gap-8 lg:gap-12">
               <p className="text-white text-sm sm:text-base lg:text-lg font-semibold">
-                <strong className="mr-1">34</strong> Publicaciones
+                <strong className="mr-1">{posts || 0}</strong> Publicaciones
               </p>
               <p className="text-white text-sm sm:text-base lg:text-lg font-semibold">
-                <strong className="mr-1">23</strong> Seguidores
+                <strong className="mr-1">{followers.length || 0}</strong> Seguidores
               </p>
               <p className="text-white text-sm sm:text-base lg:text-lg font-semibold">
-                <strong className="mr-1">43</strong> Seguidos
+                <strong className="mr-1">{user.following.length}</strong> Seguidos
               </p>
               {user.username !== user.username && (
                 <FollowButton user={user} />

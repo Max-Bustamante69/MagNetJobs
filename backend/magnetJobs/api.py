@@ -119,6 +119,20 @@ class PostViewSet(viewsets.ModelViewSet):
 
         posts = self.get_posts(user)
         return self.paginate_and_respond(posts)
+    
+    # action for liking a post
+    @action(detail=True, methods=['post'])
+    def like(self, request, pk=None):
+        post = self.get_object()
+        user = Users.objects.get(pk=request.data['user'])
+        post.likes.add(user)
+        return Response({'status': 'Post liked successfully'}, status=status.HTTP_200_OK)
+        # The url to fetch will look like this: api/posts/like/<post_id>/ with a POST request containing the user ID in the request body.
+        # So the body of the request will look like this:
+        # {
+        #     "user": 1
+        # }
+    
 
     def paginate_and_respond(self, posts):
         """Helper method for pagination and response formatting."""
