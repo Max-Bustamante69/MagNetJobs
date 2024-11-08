@@ -57,7 +57,7 @@ function Profile({ params }) {
   return (
     <div className="flex flex-col items-center gap-y-10 relative">
       <section className="w-2/3 2xl:w-1/2 mt-12 flex flex-col items-center gap-12">
-        <h2 className="font-extrabold text-7xl">
+        <h2 className="font-extrabold text-6xl">
           {isCurrentUserProfile ? "Your Profile" : `${user.username}'s Profile`}
         </h2>
         <UserCard user={user} />
