@@ -11,12 +11,11 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   const pathname = usePathname();
-  const isProfilePage = pathname === "/profile";
   return (
     <html lang="en">
       <body className={inter.className}>
 
-          <NavBar showSearch={!isProfilePage} />
+         
           {children}
 
       </body>
