@@ -15,7 +15,7 @@ import { HiMiniPlusSmall } from "react-icons/hi2";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import Icons from "../General/icons";
+import Icons from "../General/Icons";
 import { getUserContext } from "@/utils/GetUserContext";
 import { useRouter } from "next/navigation"; // Updated import
 

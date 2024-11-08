@@ -10,10 +10,10 @@ import {
 import formatTimeAgo from "@/utils/formatTimeAgo";
 import { deleteNotification } from "./DeleteNotifications";
 import { HiOutlineX } from "react-icons/hi";
-import { FriendShipCreation } from "../Friends/FollowAction";
-import { Button } from "@/components/ui/button";
+import { FriendShipCreation } from "@/app/(main)/components/Friends/FollowAction";
 
 export default function renderNotification(notification){
+    console.log(notification)
     switch (notification.type) {
         case 'solicitud-amistad':
             return (

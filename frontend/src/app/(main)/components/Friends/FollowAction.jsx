@@ -1,17 +1,28 @@
-import { sendFriendRequest } from "../Notifications/FriendRequestNotification";
+import { sendFriendRequest } from "@/app/components/Notifications/FriendRequestNotification";
 
 export async function FriendShipCreation(user, userOnSession)
-{
+{   
+
+    console.log(
+      JSON.stringify({
+        user: userOnSession,
+        friend: user,
+      })
+    );
+
+    
     const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/friendship/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          user_id: userOnSession,
-          friend_id: user,
+          user: userOnSession,
+          friend: user,
         }),
       });
+
+      
     
       if (!response.ok) {
         const errorData = await response.json();

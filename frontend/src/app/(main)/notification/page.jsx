@@ -1,5 +1,5 @@
 'use client';
-import renderNotification from "../components/Notifications/notification";
+import renderNotification from "../../components/Notifications/notification";
 import getNotificationsByRecipient from "@/utils/GetNotifications";
 import { useState, useEffect } from 'react';
 import Loader from "@/components/ui/loader";

@@ -27,8 +27,16 @@ function Profile({ params }) {
         : await LoadUser(username);
       if (profileUser) {
         setUser(profileUser);
-        const response = await loadPosts(profileUser.id, 1, true);
+        let pageCounter = 1;
+        let response = await loadPosts(profileUser.id, pageCounter, true);
         setPosts(response.results);
+        pageCounter++;
+        while(response?.next){
+          console.log(response);
+          response = await loadPosts(profileUser.id, pageCounter, true);
+          setPosts((prevPosts) => [...prevPosts, ...response.results]);
+          pageCounter++;
+        }
       }
       setIsLoading(false);
     };
@@ -59,7 +67,11 @@ function Profile({ params }) {
         <h2 className="font-extrabold text-6xl">
           {isCurrentUserProfile ? "Your Profile" : `${user.username}'s Profile`}
         </h2>
-        <UserCard user={user} posts={posts.length} />
+        <UserCard
+          isCurrentUser={isCurrentUserProfile}
+          user={user}
+          posts={posts.length}
+        />
       </section>
 
       <section className="w-2/3 2xl:w-1/2 border-t border-white border-opacity-15">
@@ -96,7 +108,11 @@ function Profile({ params }) {
             <div key={post.id} onClick={() => openModal(index)}>
               <img
                 className="h-auto max-w-full rounded-lg cursor-pointer"
-                src={post.image}
+                src={
+                  post.image
+                    ? post.image
+                    : "https://cdn-icons-png.flaticon.com/512/6995/6995660.png"
+                }
                 alt="Post thumbnail"
               />
             </div>
