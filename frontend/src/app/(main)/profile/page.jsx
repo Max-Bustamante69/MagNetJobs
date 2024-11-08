@@ -16,6 +16,7 @@ function Profile({ params }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [startPostIndex, setStartPostIndex] = useState(0);
+  const modalRef = useRef(null);
 
   const isCurrentUserProfile = !username || currentUser?.username === username;
 
@@ -56,10 +57,23 @@ function Profile({ params }) {
   return (
     <div className="flex flex-col items-center gap-y-10 relative">
       <section className="w-2/3 2xl:w-1/2 mt-12 flex flex-col items-center gap-12">
-        <h2 className="font-extrabold text-6xl">
+        <h2 className="font-extrabold text-7xl">
           {isCurrentUserProfile ? "Your Profile" : `${user.username}'s Profile`}
         </h2>
-        <UserCard user={user} posts={posts.length} />
+        <UserCard user={user} />
+
+        {!isCurrentUserProfile && (
+          <article className="flex w-full gap-2 justify-center">
+            {[...Array(4)].map((_, i) => (
+              <img
+                key={i}
+                className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+                src={`/path/to/avatar${i + 1}.jpg`}
+                alt="Avatar"
+              />
+            ))}
+          </article>
+        )}
       </section>
 
       <section className="w-2/3 2xl:w-1/2 border-t border-white border-opacity-15">
@@ -105,6 +119,7 @@ function Profile({ params }) {
       </section>
 
       <ProfilePostFeed
+        ref={modalRef}
         posts={posts}
         startPostIndex={startPostIndex}
         isModalOpen={isModalOpen}
