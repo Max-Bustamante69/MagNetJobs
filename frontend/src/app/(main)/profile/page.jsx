@@ -32,7 +32,7 @@ import loadPosts from "@/utils/LoadPosts";
   return (
     <div className="flex flex-col items-center gap-y-40">
       <section className="w-2/3 2xl:w-1/2 mt-12 flex flex-col items-center gap-12">
-        <h2 className="font-extrabold text-7xl">
+        <h2 className="font-extrabold text-6xl">
           Your <span className="bg-gradient-to-r  bg-clip-text">Profile</span>
         </h2>
         <UserCard user={user} />
