@@ -5,10 +5,11 @@ export const useUser = (userId) => {
   const { data: user, error } = useSWR(
     () =>
       userId
-        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/${userId}`
+        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/${userId}/`
         : null,
     fetcher
   );
+
 
   return {
     user: user,

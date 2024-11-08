@@ -120,6 +120,20 @@ class PostViewSet(viewsets.ModelViewSet):
 
         posts = self.get_posts(user)
         return self.paginate_and_respond(posts)
+    
+    # action for liking a post
+    @action(detail=True, methods=['post'])
+    def like(self, request, pk=None):
+        post = self.get_object()
+        user = Users.objects.get(pk=request.data['user'])
+        post.likes.add(user)
+        return Response({'status': 'Post liked successfully'}, status=status.HTTP_200_OK)
+        # The url to fetch will look like this: api/posts/like/<post_id>/ with a POST request containing the user ID in the request body.
+        # So the body of the request will look like this:
+        # {
+        #     "user": 1
+        # }
+    
 
     def paginate_and_respond(self, posts):
         """Helper method for pagination and response formatting."""
@@ -135,11 +149,11 @@ class FriendshipViewSet (viewsets.ModelViewSet):
     queryset = Friendship.objects.all()
 
     def create(self, request, *args, **kwargs):
-        user_id = request.data.get("user_id")
-        friend_id = request.data.get("friend_id")
+        user_id = request.data.get("user")
+        friend_id = request.data.get("friend")
 
         if not user_id or not friend_id:
-            return Response({"error": "User IDs are required"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": f'User IDs are required, recieved {user_id} and {friend_id}.'}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             user = Users.objects.get(id=user_id)

@@ -35,7 +35,6 @@ function SignUpForm() {
   async function onSubmit(data) {
     setError(undefined);
     startTransition(async () => {
-        console.log(data)
         const {error} = await signUp(data);
         if (error) {
             setError(error);

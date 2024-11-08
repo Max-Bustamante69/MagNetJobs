@@ -4,22 +4,29 @@ import React, { useState, useEffect, useRef } from "react";
 import Loader from "@/components/ui/loader";
 import Post from "./Post";
 import loadPosts from "@/utils/LoadPosts";
+import { useUser } from "@/app/(main)/SessionProvider";
 
 
 
 function ListPosts({ initialPosts }) {
+
+  const user  = useUser();
+  
+
   const [posts, setPosts] = useState(initialPosts || []);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMorePosts, setHasMorePosts] = useState(true);
   const [error, setError] = useState(null);
   const loader = useRef(null);
+  
 
   const fetchMorePosts = async () => {
     if (loading || !hasMorePosts) return; // Prevent fetching if already loading or no more posts
     setLoading(true);
     try {
-      const response = await loadPosts(page);
+      console.log(user.id);
+      const response = await loadPosts(user.id, page);
       console.log(response);
       const newPosts = response.results;
 
@@ -63,7 +70,7 @@ function ListPosts({ initialPosts }) {
   return (
     <div className="flex flex-col items-center my-12">
       {posts.map((post) => (
-        <Post key={post.id} post={post} isLoading={loading} />
+        <Post className='w-1/3'   key={post.id} post={post} isLoading={loading} />
       ))}
       <div className="error">
         {error && <p>Error fetching more posts: {error.message}</p>}

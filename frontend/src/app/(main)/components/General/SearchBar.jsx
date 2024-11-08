@@ -34,7 +34,7 @@ function SearchBar() {
   }, [search]);
 
   return (
-    <div className="flex flex-col w-1/3 items-center justify-top relative z-50">
+    <div className="flex flex-col w-full items-center justify-top relative z-50">
       <div
         id="search-bar"
         className="flex w-full items-center relative border border-white border-opacity-20 text-md font-bold p-1 rounded-lg transition duration-300 focus-within:border-opacity-80 hover:border-green-700">

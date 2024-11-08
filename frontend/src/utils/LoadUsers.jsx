@@ -17,4 +17,4 @@ async function loadUsers() {
   }
 }
 
-export { loadUsers };
+export default loadUsers;
