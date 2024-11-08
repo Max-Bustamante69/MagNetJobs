@@ -7,7 +7,7 @@ import { SkeletonCard } from "@/components/SkeletonCard";
 import { useUser } from "@/utils/GetUserById";
 import React from "react";
 
-const Post = React.memo(function Post({ post, isLoading }) {
+const Post = React.memo(function Post({ post, isLoading, className='' }) {
   // Use the custom hook instead of calling useSWR directly
   const {
     user,
@@ -20,7 +20,7 @@ const Post = React.memo(function Post({ post, isLoading }) {
   if (isUserError) return <p>Error loading user</p>;
 
   return (
-    <article className="border-b border-white border-opacity-20 py-8 mb-2 w-1/3 flex flex-col justify-around space-y-3">
+    <article className={`border-b border-white border-opacity-20 py-8 mb-2  flex flex-col justify-around space-y-3 ${className}`}>
       <div id="profile" className="flex gap-4 items-end">
         <Avatar>
           <AvatarImage
